@@ -6,17 +6,18 @@
 
 它不会训练 Gaussian Splat，也不会调用 COLMAP 做特征匹配。它利用 Blender 场景中已知的真实相机位姿生成 COLMAP 文本模型，因此特别适合合成数据、产品展示、数字资产、室内空间、虚拟扫描和可控训练集制作。
 
-## 1.4.0 Manual Walk Path
+## 1.4.2 行走引导全覆盖路径
 
-在路径模式中展开 `Manual Walk Path`：
+在路径模式中展开 `Walk Guided Coverage / 行走引导全覆盖`：
 
-1. 点击“开始录制”，使用 Blender Walk Navigation 的 WASD、鼠标和 Gravity 走过房间、走廊及楼梯。
-2. 确认并退出 Walk Navigation，再点击“结束录制”。插件会保留真实 XYZ 并生成蓝色 `GS_WalkBasePath`。
-3. 选择 2、3 或 4 Layers；默认 3 层，间距 0.35 m。修改间距或 Advanced 中每层 Offset 会立即重新生成，不需要重新行走。
-4. 保持 Collision Cut 开启，并按场景调整 Safety Radius。碰撞区间显示为红色，合法区间会自动断开成独立 Segment，极短碎段不会进入采集。
-5. 有效 Segment 已自动设为路径 Collection，并切换到 Scientific Pose Sequence。之后按原流程创建科学相机阵列，Coverage 会完成弧长采样、方向和最终 Pose 选择，场景仍只保留 `GS_CAPTURE_CAMERA`。
+1. 点击“开始空间示教”，使用 Blender Walk Navigation 的 WASD、鼠标和 Gravity 走过想采集的房间、走廊和楼梯。无需走遍每个墙角。
+2. 退出 Walk Navigation 后点击“结束空间示教”。蓝色 `GS_WalkBasePath` 仅保存示教样本，不会成为最终样条。
+3. 点击“分析可达区域并生成全覆盖路径”。每个示教点先向下投影到实际 Mesh 地面；插件取所有种子可达区域的并集，并以经过 Mesh 碰撞验证的示教相邻点作为门洞或楼梯连通证据。
+4. 每个可达房间自动生成往返 Sweep Lanes，房间边缘/角落由安全内缩的 Boundary Coverage 覆盖；门洞生成 Portal 连接，楼梯作为垂直 Connector，而非在踏步上铺满横线。
+5. 选择 2、3 或 4 Layers。最终每条 Coverage Lane 按局部楼板和天花板产生真实高度层，逐层密集采样和碰撞裁切。状态显示可达网格、路径数量、空间覆盖率与未覆盖格；默认目标为至少 98%。
+6. 有效 Segment 已自动设为路径 Collection，并切换到 Scientific Pose Sequence。之后按原流程创建科学相机阵列，场景仍只保留 `GS_CAPTURE_CAMERA`。
 
-BasePath、Layer Offset 设置和生成的安全 Segment 是三个独立数据层。重新调高度只重建后两者，不会永久改变人工行走轨迹。
+行走示教、可达空间与生成的分层 Coverage Segment 是独立数据层。行走时的轻微 Z 起伏不会写入普通房间路径高度；只有经过验证的楼梯/坡道转换才会保留为连续三维连接。
 
 ## 1.3.10 多楼层、楼梯与可达空间路径
 

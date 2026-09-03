@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Gaussian Splat COLMAP Dataset Generator",
     "author": "Codex",
-    "version": (1, 4, 1),
+    "version": (1, 4, 2),
     "blender": (5, 1, 0),
     "location": "View3D/Shader Editor > Sidebar > GS; Render Properties > GS Dataset; Render Menu > GS Dataset",
     "description": "Automated Blender dataset renderer for Gaussian Splatting and COLMAP-style sparse models.",
@@ -362,7 +362,7 @@ def _fmt_time(seconds):
 
 
 def _addon_version_str():
-    return ".".join(str(v) for v in (globals().get("bl_info") or {}).get("version", (1, 4, 1)))
+    return ".".join(str(v) for v in (globals().get("bl_info") or {}).get("version", (1, 4, 2)))
 
 
 RENDER_STATE_NAME = "_gs_render_state.json"
@@ -1623,10 +1623,40 @@ class FloorplanCell:
     portal_candidate: bool = False
 
 
+def _floorplan_mesh_ray_cast(scene, depsgraph, origin, direction, distance):
+    """Ray-cast only physical Mesh geometry used by floor-plan planning.
+
+    Walk recording and generated coverage are Curve objects.  Blender's scene
+    ray cast includes their bevel geometry, so accepting them here would turn
+    a recorded path into a false floor, ceiling or wall on the next analysis.
+    """
+    direction = Vector(direction).normalized()
+    cursor = Vector(origin)
+    remaining = max(0.0, float(distance))
+    epsilon = 1e-4
+    for _index in range(128):
+        hit, location, normal, face, obj, matrix = scene.ray_cast(
+            depsgraph, cursor, direction, distance=remaining
+        )
+        if not hit:
+            return False, None, None, None, None, None
+        source = getattr(obj, "original", obj) if obj is not None else None
+        if getattr(source, "type", getattr(obj, "type", None)) == "MESH":
+            return hit, location, normal, face, obj, matrix
+        advance = max(epsilon, (location - cursor).length + epsilon)
+        remaining -= advance
+        if remaining <= epsilon:
+            break
+        cursor = location + direction * epsilon
+    return False, None, None, None, None, None
+
+
 def _floorplan_horizontal_clearance(scene, depsgraph, point, margin, hdirs):
     nearest = margin
     for d in hdirs:
-        hit, loc, _n, _fi, _o, _m = scene.ray_cast(depsgraph, point + d * 1e-4, d, distance=margin)
+        hit, loc, _n, _fi, _o, _m = _floorplan_mesh_ray_cast(
+            scene, depsgraph, point + d * 1e-4, d, margin
+        )
         if hit:
             nearest = min(nearest, (loc - point).length)
     return nearest
@@ -1700,9 +1730,9 @@ def _floorplan_vertical_hits(scene, depsgraph, x, y, low_z, high_z, epsilon):
     guard = 0
     while cursor > low_z - epsilon and guard < 128:
         origin = Vector((x, y, cursor))
-        hit, location, normal, _face_index, obj, _matrix = scene.ray_cast(
-            depsgraph, origin, Vector((0.0, 0.0, -1.0)),
-            distance=max(epsilon, cursor - low_z + epsilon),
+        hit, location, normal, _face_index, obj, _matrix = _floorplan_mesh_ray_cast(
+            scene, depsgraph, origin, Vector((0.0, 0.0, -1.0)),
+            max(epsilon, cursor - low_z + epsilon),
         )
         if not hit:
             break
@@ -1765,11 +1795,11 @@ def _floorplan_probe_cells_3d(scene, settings, bounds):
             for floor_location, floor_normal, support_id in surfaces:
                 if floor_normal.z < minimum_normal_z:
                     continue
-                ceiling_hit, ceiling_location, *_ = scene.ray_cast(
-                    depsgraph,
+                ceiling_hit, ceiling_location, *_ = _floorplan_mesh_ray_cast(
+                    scene, depsgraph,
                     floor_location + Vector((0.0, 0.0, epsilon)),
                     Vector((0.0, 0.0, 1.0)),
-                    distance=vertical_distance,
+                    vertical_distance,
                 )
                 if not ceiling_hit or ceiling_location.z - floor_location.z < headroom:
                     continue
@@ -1790,11 +1820,11 @@ def _floorplan_probe_cells_3d(scene, settings, bounds):
                 def footprint_supported(radius):
                     for direction in hdirs[::3]:
                         footprint = point + direction * radius
-                        support_hit, support_location, support_normal, *_ = scene.ray_cast(
-                            depsgraph,
+                        support_hit, support_location, support_normal, *_ = _floorplan_mesh_ray_cast(
+                            scene, depsgraph,
                             footprint + Vector((0.0, 0.0, 0.05 * units_per_meter)),
                             Vector((0.0, 0.0, -1.0)),
-                            distance=eye_height + support_tolerance + 0.10 * units_per_meter,
+                            eye_height + support_tolerance + 0.10 * units_per_meter,
                         )
                         if (
                             not support_hit
@@ -1833,9 +1863,9 @@ def _floorplan_segment_clear_3d(
     if distance <= 1e-8:
         return True
     direction = delta / distance
-    hit, *_ = scene.ray_cast(
-        depsgraph, left + direction * 1e-4, direction,
-        distance=max(0.0, distance - 2e-4),
+    hit, *_ = _floorplan_mesh_ray_cast(
+        scene, depsgraph, left + direction * 1e-4, direction,
+        max(0.0, distance - 2e-4),
     )
     if hit:
         return False
@@ -1850,9 +1880,9 @@ def _floorplan_segment_clear_3d(
         if _floorplan_horizontal_clearance(scene, depsgraph, point, margin, hdirs) + 1e-6 < margin:
             return False
         down_origin = point + Vector((0.0, 0.0, 0.05 * units_per_meter))
-        floor_hit, floor_location, *_ = scene.ray_cast(
-            depsgraph, down_origin, Vector((0.0, 0.0, -1.0)),
-            distance=eye_height + support_tolerance + 0.10 * units_per_meter,
+        floor_hit, floor_location, *_ = _floorplan_mesh_ray_cast(
+            scene, depsgraph, down_origin, Vector((0.0, 0.0, -1.0)),
+            eye_height + support_tolerance + 0.10 * units_per_meter,
         )
         if not floor_hit:
             return False
@@ -1874,9 +1904,9 @@ def _floorplan_graph_edge_clear_3d(
     if distance <= 1e-8:
         return True
     direction = delta / distance
-    hit, *_ = scene.ray_cast(
-        depsgraph, left + direction * 1e-4, direction,
-        distance=max(0.0, distance - 2e-4),
+    hit, *_ = _floorplan_mesh_ray_cast(
+        scene, depsgraph, left + direction * 1e-4, direction,
+        max(0.0, distance - 2e-4),
     )
     if hit:
         return False
@@ -1885,11 +1915,11 @@ def _floorplan_graph_edge_clear_3d(
         0.12 * units_per_meter,
         float(maximum_step_m) * units_per_meter,
     )
-    floor_hit, floor_location, *_ = scene.ray_cast(
-        depsgraph,
+    floor_hit, floor_location, *_ = _floorplan_mesh_ray_cast(
+        scene, depsgraph,
         midpoint + Vector((0.0, 0.0, 0.05 * units_per_meter)),
         Vector((0.0, 0.0, -1.0)),
-        distance=eye_height + support_tolerance + 0.10 * units_per_meter,
+        eye_height + support_tolerance + 0.10 * units_per_meter,
     )
     return bool(
         floor_hit
@@ -2138,7 +2168,39 @@ def _build_auto_reachable_layers(
     }
 
 
-def _build_scientific_floorplan_network_3d(scene, settings, bounds):
+def _walk_seed_cells_3d(scene, cells, samples, spacing, eye_height, units_per_meter):
+    """Project recorded viewport locations onto stable walkable floor cells."""
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    floor_tolerance = max(0.15 * units_per_meter, spacing * 0.85)
+    horizontal_limit = max(0.45 * units_per_meter, spacing * 1.85)
+    keys = []
+    for sample in samples:
+        sample = Vector(sample)
+        hit, floor, normal, _face, obj, _matrix = _floorplan_mesh_ray_cast(
+            scene, depsgraph,
+            sample + Vector((0.0, 0.0, 0.05 * units_per_meter)),
+            Vector((0.0, 0.0, -1.0)), 8.0 * units_per_meter,
+        )
+        expected_floor = floor.z if hit and normal is not None and normal.z > 0.05 else sample.z - eye_height
+        candidates = []
+        for key, cell in cells.items():
+            horizontal = math.hypot(cell.x - sample.x, cell.y - sample.y)
+            if horizontal > horizontal_limit:
+                continue
+            # Evaluated objects may not preserve the original support name.
+            # The physical down-ray floor height is the authoritative match.
+            floor_gap = abs(cell.floor_z - expected_floor)
+            if floor_gap <= floor_tolerance:
+                candidates.append((horizontal, floor_gap, key))
+        if not candidates:
+            continue
+        key = min(candidates)[2]
+        if not keys or key != keys[-1]:
+            keys.append(key)
+    return keys
+
+
+def _build_scientific_floorplan_network_3d(scene, settings, bounds, walk_samples=None):
     _clear_multilevel_path_debug(scene)
     cells, spacing, margin, hdirs, eye_height, units_per_meter, safety_radius = _floorplan_probe_cells_3d(
         scene, settings, bounds
@@ -2161,7 +2223,9 @@ def _build_scientific_floorplan_network_3d(scene, settings, bounds):
         large_room_area_m2=float(getattr(settings, "multilevel_large_room_area", 28.0)),
         coverage_path_count=int(getattr(settings, "multilevel_coverage_paths", 2)),
         room_minimum_lanes=max(2, int(getattr(settings, "multilevel_coverage_paths", 2))),
-        coverage_radius_m=max(0.50, float(getattr(settings, "scientific_minimum_step", 0.45)) * 2.5),
+        coverage_radius_m=max(0.35, float(getattr(settings, "scientific_minimum_step", 0.45))),
+        coverage_target_ratio=0.98,
+        maximum_coverage_lane_gap_m=max(0.45, min(0.85, float(getattr(settings, "scientific_minimum_step", 0.45)) * 2.0)),
     )
     planner_cells = [path_planner_3d.WalkableCell(
         key=cell.key,
@@ -2184,10 +2248,26 @@ def _build_scientific_floorplan_network_3d(scene, settings, bounds):
             units_per_meter, config.maximum_connector_step_m,
         )
 
+    walk_seed_keys = []
+    if walk_samples:
+        # One seed per 0.4 m is enough to prove the walked topology without
+        # treating the user's exact head motion as a final camera curve.
+        sampled_walk = manual_walk_path.resample_polyline(
+            [Vector(point) for point in walk_samples], 0.40 * units_per_meter
+        )
+        # BasePath itself is commonly stored at sparse original samples.  Keep
+        # those points too; resampling must never collapse a short walk to one.
+        sampled_walk = [Vector(point) for point in walk_samples] + sampled_walk
+        walk_seed_keys = _walk_seed_cells_3d(
+            scene, cells, sampled_walk, spacing, eye_height, units_per_meter
+        )
+        if not walk_seed_keys:
+            raise RuntimeError("行走样本没有投影到合法地面；请在室内地面附近重新示教。")
+
     restrict_to_reachable = (
         getattr(settings, "floorplan_space_mode", "REACHABLE") != "ALL"
         and getattr(settings, "floorplan_seed_mode", "CURSOR") != "ALL"
-    )
+    ) and not walk_seed_keys
     seed_key = None
     if restrict_to_reachable:
         seed_key = _floorplan_seed_cell_3d(
@@ -2210,6 +2290,8 @@ def _build_scientific_floorplan_network_3d(scene, settings, bounds):
         segment_validator=valid,
         edge_validator=edge_valid,
         reachable_seed_key=seed_key,
+        reachable_seed_keys=walk_seed_keys or None,
+        seed_bridges=list(zip(walk_seed_keys, walk_seed_keys[1:])),
         stitch_fragments_enabled=bool(getattr(settings, "fragment_stitching", True)),
     )
     if not result.final_fragments:
@@ -2233,11 +2315,36 @@ def _build_scientific_floorplan_network_3d(scene, settings, bounds):
     if not objects:
         return None
     result.stats.update(layer_stats)
+    if walk_seed_keys:
+        result.stats["walk_guided_coverage"] = True
+        result.stats["walk_seed_count"] = len(walk_seed_keys)
+        result.stats["walk_trace_bridge_count"] = max(0, len(walk_seed_keys) - 1)
     scene["gs_multilevel_path_stats"] = json.dumps(result.stats, ensure_ascii=False)
     return {
         "primary": objects[0], "collection": collection, "objects": objects,
         "points": total_points, "planner_result": result,
     }
+
+
+def build_walk_guided_coverage(scene, settings, walk_samples):
+    """Use a recorded walk only as verified reachability seeds, then cover it."""
+    bounds = scene_mesh_bounds(scene)
+    if not bounds:
+        return None
+    result = _build_scientific_floorplan_network_3d(
+        scene, settings, bounds, walk_samples=walk_samples,
+    )
+    if result is None:
+        return None
+    stats = json.loads(scene.get("gs_multilevel_path_stats", "{}"))
+    settings.manual_walk_status = (
+        f"可达网格 {stats.get('walkable_cell_count', 0)}，"
+        f"覆盖路径 {len(result['objects'])} 条，"
+        f"空间覆盖 {stats.get('path_spatial_coverage_ratio', 0.0):.1%}，"
+        f"未覆盖 {stats.get('uncovered_cell_count', 0)} 格"
+    )
+    scene["gs_walk_guided_coverage_summary"] = json.dumps(stats, ensure_ascii=False)
+    return result
 
 
 def _floorplan_neighbor_keys(key, cells):
@@ -6509,7 +6616,7 @@ class GSCOLMAP_Settings(PropertyGroup):
     path_object: PointerProperty(name="Path Curve", type=bpy.types.Object, update=live_update_camera_rig)
     path_collection: PointerProperty(name="Path Curves Collection", type=bpy.types.Collection, update=live_update_camera_rig)
     manual_walk_recording: BoolProperty(name="正在录制", default=False)
-    manual_walk_status: StringProperty(name="Manual Walk 状态", default="尚未录制行走路径")
+    manual_walk_status: StringProperty(name="行走引导覆盖状态", default="尚未录制空间示教")
     manual_walk_layer_count: EnumProperty(
         name="Layer Count",
         items=(("2", "2 Layers", "Upper / Lower"),
@@ -8353,15 +8460,15 @@ def draw_gs_colmap_panel(self, context):
             box.prop(settings, "path_collection", text=tr(settings, "path_collection"))
             box.prop(settings, "path_capture_mode", text="采集模式")
             walk = box.box()
-            walk.label(text="Manual Walk Path", icon="TRACKING")
+            walk.label(text="Walk Guided Coverage / 行走引导全覆盖", icon="TRACKING")
             record_row = walk.row(align=True)
             start = record_row.row(align=True)
             start.enabled = not settings.manual_walk_recording
-            start.operator("gs_colmap.manual_walk_start", text="开始录制", icon="REC")
+            start.operator("gs_colmap.manual_walk_start", text="开始空间示教", icon="REC")
             stop = record_row.row(align=True)
             stop.enabled = settings.manual_walk_recording
-            stop.operator("gs_colmap.manual_walk_stop", text="结束录制", icon="PAUSE")
-            record_row.operator("gs_colmap.manual_walk_clear", text="清除路径", icon="X")
+            stop.operator("gs_colmap.manual_walk_stop", text="结束空间示教", icon="PAUSE")
+            record_row.operator("gs_colmap.manual_walk_clear", text="清除示教", icon="X")
             walk.label(
                 text=settings.manual_walk_status,
                 icon="TIME" if settings.manual_walk_recording else "INFO",
@@ -8373,7 +8480,7 @@ def draw_gs_colmap_panel(self, context):
                 walk.prop(settings, "manual_walk_safety_radius", text="Safety Radius")
             walk.operator(
                 "gs_colmap.manual_walk_regenerate",
-                text="重新生成多层路径",
+                text="分析可达区域并生成全覆盖路径",
                 icon="FILE_REFRESH",
             )
             advanced_walk = walk.row(align=True)

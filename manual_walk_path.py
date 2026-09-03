@@ -243,7 +243,7 @@ def _point_collides(cache, point, safety_radius):
     return scientific_planner._point_inside_solid(cache, Vector(point))
 
 
-def regenerate_manual_layers(scene, settings, *, force_bvh=False):
+def _regenerate_walk_trace_layers(scene, settings, *, force_bvh=False):
     base = _base_points(scene)
     if len(base) < 2:
         return None
@@ -325,15 +325,61 @@ def regenerate_manual_layers(scene, settings, *, force_bvh=False):
     return summary
 
 
+def regenerate_manual_layers(scene, settings, *, force_bvh=False):
+    """Build complete coverage from walk-proven reachability, never walk shape."""
+    seeds = _base_points(scene)
+    if len(seeds) < 2:
+        return None
+    # Keep the established manual control as the source of truth, while the
+    # actual heights now come from local floor/ceiling queries per coverage lane.
+    settings.scientific_layer_count = int(getattr(settings, "manual_walk_layer_count", "3"))
+    settings.scientific_camera_clearance = float(
+        getattr(settings, "manual_walk_safety_radius", 0.20)
+    )
+    from . import build_walk_guided_coverage
+
+    result = build_walk_guided_coverage(scene, settings, seeds)
+    if result is None:
+        return None
+    stats = __import__("json").loads(scene.get("gs_multilevel_path_stats", "{}"))
+    summary = {
+        "valid_segments": len(result["objects"]),
+        "invalid_intervals": stats.get("collision_cut_interval_count", 0),
+        "path_spatial_coverage_ratio": stats.get("path_spatial_coverage_ratio", 0.0),
+        "uncovered_cells": stats.get("uncovered_cell_count", 0),
+        "layers": stats.get("layer_segment_counts", []),
+    }
+    live = bool(getattr(settings, "live_update_cameras", False))
+    settings.live_update_cameras = False
+    try:
+        settings.rig_mode = "PATH"
+        settings.path_capture_mode = "SCIENTIFIC_THREE_LAYER"
+        settings.scientific_origin_mode = "MANUAL_CURVE"
+        settings.scientific_realization_mode = "SCIENTIFIC_POSE_SEQUENCE"
+        settings.path_object = result["primary"]
+        settings.path_collection = result["collection"]
+    finally:
+        settings.live_update_cameras = live
+    scene["gs_manual_walk_summary"] = str(summary)
+    return summary
+
+
 def clear_manual_paths(scene, settings):
     generated = bpy.data.collections.get(VALID_COLLECTION)
     if getattr(settings, "path_collection", None) is generated:
         settings.path_collection = None
     for name in (BASE_COLLECTION, VALID_COLLECTION, DEBUG_COLLECTION):
         _remove_collection(name)
+    # Walk-guided output lives in the normal auto-path collection so that it
+    # enters the established scientific pose pipeline.
+    try:
+        from . import _clear_auto_floorplan_paths
+        _clear_auto_floorplan_paths(scene)
+    except Exception:
+        pass
     _RECORD_STATE.update(active=False, samples=[], region_data=None, scene=None)
     settings.manual_walk_recording = False
-    settings.manual_walk_status = "尚未录制行走路径"
+    settings.manual_walk_status = "尚未录制空间示教"
 
 
 def _viewport_context(context):

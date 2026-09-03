@@ -1,6 +1,6 @@
 # Gaussian Splat COLMAP Dataset Generator
 
-当前版本：`1.4.1`
+当前版本：`1.4.2`
 
 实际升级基线：`blender_gs_colmap_exporter-1.2.7-chunked-background-render`
 
@@ -25,13 +25,13 @@ Blender 5.1 扩展，用于在已知三维场景中生成训练相机、Cycles �
 
 自动路径会实际生成 2/3/4 个局部高度层。每个采样点依据其正下方楼面和正上方天花板计算 LOW/MID/HIGH（或四层）高度，每一层独立密集采样、BVH 安全球检测、薄墙线段检测和碰撞区间裁切，再把合法 Segment 送入现有 Coverage、Overlap、Yaw/Pitch、Polar/Bridge 与 Pose Selection，不会被二次分层。
 
-## Manual Walk Path（v1.4.0）
+## Walk Guided Coverage / 行走引导全覆盖（v1.4.2）
 
-路径模式新增 `Manual Walk Path`。点击“开始录制”会启动 Blender Walk Navigation，并以 0.05 秒间隔持续记录当前视口的世界坐标 XYZ；确认行走导航后点击“结束录制”，插件会执行去重、0.10 m 弧长重采样和保留楼梯 Z 过渡的轻度平滑，生成独立且不会被后续操作修改的 `GS_WalkBasePath`。
+点击“开始空间示教”会启动 Blender Walk Navigation，并以 0.05 秒间隔持续记录当前视口的世界坐标 XYZ。示教数据保存为 `GS_WalkBasePath`，但它只作为已实际走过空间的 Reachability Seeds，绝不会直接转换为最终采集曲线。
 
-BasePath 可生成 2/3/4 层路径，默认 3 层及 `+0.35 / 0.00 / -0.35 m`。修改 Layer Spacing 或任意 Layer Z Offset 会立即从 BasePath 重建，不必重新行走。每层按 0.075 m 对完整样条密集采样，使用 Evaluated Mesh 的共享 BVH、实体内部测试和可调安全球半径进行碰撞检查；连续碰撞样本会合并成一个区间，按安全半径向前后扩张后裁掉，保留的短于 0.50 m 的碎段自动删除。
+点击“分析可达区域并生成全覆盖路径”后，所有示教点先向下投射到真实 Mesh 地面，按 Floor Region 聚类并取各个可达岛的并集。相邻示教点可作为真实门洞/楼梯的连通证据，但仍必须通过墙体与地面物理验证，无法凭借穿墙示教创建假通道。随后每个可达房间使用 Boustrophedon 风格平行 Sweep Lane 填满，门洞通过 Portal 连接，楼梯保留为垂直连接器。
 
-蓝色 `GS_WalkBasePath` 只描述路线；合法的分层 Segment 保存在 `GS_MANUAL_WALK_VALID`，红色碰撞区间保存在不参与渲染的 `GS_MANUAL_WALK_COLLISION_DEBUG`。科学 Coverage 会直接读取合法 Segment 的准确 XYZ，不会再次增加高度层；弧长采样、Yaw/Pitch、Overlap、Polar/Bridge 和 Pose Selection 沿用原系统，最终仍只有一台 `GS_CAPTURE_CAMERA`。
+规划器以 `Path Spatial Coverage` 检查每个可达网格到最近路径的距离；低于 98% 时自动添加 Sweep Lane。状态栏显示可达网格、路径数量、空间覆盖率和未覆盖格。最终路径按每个局部 Floor/Ceiling 生成实际 2/3/4 个高度层，逐层执行密集 Mesh 碰撞裁切后送入现有科学 Coverage 与 Pose 管线，场景仍只保留 `GS_CAPTURE_CAMERA`。
 
 ## 3D 多楼层科学路径（v1.3.10）
 

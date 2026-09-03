@@ -64,6 +64,7 @@ stats = json.loads(scene["gs_multilevel_path_stats"])
 plan = result["planner_result"]
 assert stats["floor_region_count"] >= 2, stats
 assert stats["stair_connector_count"] >= 1, stats
+assert stats["path_spatial_coverage_ratio"] >= 0.98, stats
 assert 1 <= stats["final_spline_count"] <= stats["raw_fragment_count"], stats
 assert any(len(fragment.region_ids) >= 2 and fragment.connector_id for fragment in plan.final_fragments)
 assert any(obj.get("gs_connector_id") for obj in result["objects"]), "stair was not stitched into a final spline"

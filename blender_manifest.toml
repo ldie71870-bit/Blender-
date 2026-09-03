@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "blender_gs_colmap_exporter"
-version = "1.4.1"
+version = "1.4.2"
 name = "Gaussian Splat COLMAP Dataset Generator"
 tagline = "Plan, patch and render COLMAP datasets for Gaussian Splatting"
 maintainer = "Codex"
@@ -21,6 +21,7 @@ permissions.files = "Export datasets and background render logs"
 paths_exclude_pattern = [
   "__pycache__/",
   "/.git/",
+  "/.tmp_blender_test/",
   "/*.zip",
   "/tests/",
   "/releases/",

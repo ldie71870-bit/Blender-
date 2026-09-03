@@ -89,8 +89,9 @@ class PlannerConfig:
     room_minimum_area_m2: float = 4.0
     room_minimum_width_m: float = 1.8
     room_minimum_lanes: int = 2
-    coverage_radius_m: float = 1.25
-    coverage_target_ratio: float = 0.82
+    coverage_radius_m: float = 0.50
+    coverage_target_ratio: float = 0.98
+    maximum_coverage_lane_gap_m: float = 0.85
 
 
 @dataclass(frozen=True)
@@ -195,7 +196,7 @@ def _components(graph, keys=None):
     return result
 
 
-def build_walkable_graph(cells, config: PlannerConfig, edge_validator=None):
+def build_walkable_graph(cells, config: PlannerConfig, edge_validator=None, seed_bridges=()):
     """Connect XY-neighbour samples while preserving every independent Z layer."""
     validator = edge_validator or (lambda _left, _right: True)
     by_key = {_cell(item).key: _cell(item) for item in cells}
@@ -227,6 +228,24 @@ def build_walkable_graph(cells, config: PlannerConfig, edge_validator=None):
                 graph[other.key].append((cell.key, cost))
     for key in graph:
         graph[key].sort(key=lambda item: item[0])
+    # A recorded walk is evidence that two projected cells are connected.  It
+    # is still admitted only after the same physical edge validator used by
+    # ordinary graph edges accepts the segment, so a trace through a wall does
+    # not manufacture a portal.
+    for left_key, right_key in seed_bridges:
+        left_key, right_key = tuple(left_key), tuple(right_key)
+        if left_key == right_key or left_key not in by_key or right_key not in by_key:
+            continue
+        left, right = by_key[left_key], by_key[right_key]
+        rise = abs(left.floor_z - right.floor_z)
+        if rise > maximum_rise or not validator(left.point, right.point):
+            continue
+        cost = _distance(left.point, right.point)
+        if not any(key == right_key for key, _value in graph[left_key]):
+            graph[left_key].append((right_key, cost))
+            graph[right_key].append((left_key, cost))
+    for key in graph:
+        graph[key].sort(key=lambda item: item[0])
     return by_key, graph
 
 
@@ -243,6 +262,14 @@ def reachable_cell_keys(graph, seed_key):
             if neighbor not in reachable:
                 reachable.add(neighbor)
                 stack.append(neighbor)
+    return reachable
+
+
+def reachable_cell_keys_union(graph, seed_keys):
+    """Return the union of graph islands proven reachable by walk seeds."""
+    reachable = set()
+    for seed_key in seed_keys or ():
+        reachable.update(reachable_cell_keys(graph, tuple(seed_key)))
     return reachable
 
 
@@ -790,6 +817,46 @@ def _covered_keys(keys, cells, fragments, radius):
     return covered
 
 
+def _lane_coverage_keys(keys, cells, lane_keys, radius):
+    """Return mask cells covered by one raster-aligned sweep lane.
+
+    Coverage lanes are rows/columns of the same walkable grid.  Their cells
+    therefore form a compact spatial index: checking nearby grid coordinates
+    is equivalent to the expensive point-to-every-segment test for planning,
+    while keeping the exact geometric check for the final reported metric.
+    """
+    if not lane_keys:
+        return set()
+    allowed = set(keys)
+    spacing = max(1e-9, max(
+        abs(cells[right].point[0] - cells[left].point[0])
+        + abs(cells[right].point[1] - cells[left].point[1])
+        for left, right in zip(lane_keys, lane_keys[1:])
+    ) if len(lane_keys) > 1 else 0.0)
+    # Keys encode the uniform XY raster.  A radius of 0.45 m at 0.30 m grid
+    # needs only a two-cell halo around the lane, not a scene-wide scan.
+    grid = max(1e-9, spacing)
+    halo = max(1, int(math.ceil(radius / grid)) + 1)
+    points = [cells[key].point for key in lane_keys]
+    covered = set()
+    for lane_key in lane_keys:
+        ix, iy = lane_key[:2]
+        for dx in range(-halo, halo + 1):
+            for dy in range(-halo, halo + 1):
+                candidate = (ix + dx, iy + dy, *lane_key[2:])
+                # A multi-floor grid uses a distinct z key.  Search the
+                # region's actual keys rather than assuming it is shared.
+                if candidate not in allowed:
+                    continue
+                point = cells[candidate].point
+                if any(
+                    _xy_point_segment_distance(point, left, right) <= radius + 1e-9
+                    for left, right in zip(points, points[1:])
+                ):
+                    covered.add(candidate)
+    return covered
+
+
 def _room_coverage_fragments(space_regions, cells, graph, existing, config, start_index):
     """Add parallel room lanes until the reachable-mask coverage target is met."""
     result = []
@@ -830,6 +897,104 @@ def _room_coverage_fragments(space_regions, cells, graph, existing, config, star
             result.append(fragment)
             relevant.append(fragment)
             selected_buckets.add(bucket)
+    return result
+
+
+def _complete_coverage_fragments(regions, cells, graph, existing, config, start_index):
+    """Patch every reachable floor mask with boustrophedon-style sweep lanes.
+
+    Each raster row is a coverage cell clipped by the walkable graph.  Greedy
+    selection stops only at the configured spatial target, which intentionally
+    prefers redundant legal camera-centre coverage over a shorter route.
+    """
+    result = []
+    radius = max(
+        config.grid_spacing * 0.75,
+        min(
+            config.coverage_radius_m * config.units_per_meter,
+            config.maximum_coverage_lane_gap_m * config.units_per_meter * 0.5,
+        ),
+    )
+    for region in regions:
+        keys = [key for key in region.cell_keys if key in cells]
+        if len(keys) < 2:
+            continue
+        proxy = SpaceRegion(region.region_id, region.region_id, "ROOM", keys, region.area_m2)
+        candidates = _space_lane_candidates(proxy, cells, graph, config)
+        if not candidates:
+            continue
+        relevant = [fragment for fragment in existing + result if region.region_id in fragment.region_ids]
+        covered = _covered_keys(keys, cells, relevant, radius)
+        lane_coverage = [
+            _lane_coverage_keys(keys, cells, lane_keys, radius)
+            for _bucket, lane_keys in candidates
+        ]
+        selected = set()
+        while candidates:
+            if len(covered) / max(1, len(keys)) >= config.coverage_target_ratio:
+                break
+            best = None
+            for position, (bucket, lane_keys) in enumerate(candidates):
+                points = [cells[key].point for key in lane_keys]
+                gain = len(lane_coverage[position] - covered)
+                # Prefer a boundary lane when gains tie, ensuring walls and
+                # corners get a legal, safety-offset path as well.
+                edge_rank = -min(position, len(candidates) - 1 - position)
+                score = (gain, edge_rank, len(points), -position)
+                if best is None or score > best[0]:
+                    best = (score, position, bucket, points)
+            if best is None or best[0][0] <= 0:
+                break
+            _score, position, bucket, points = best
+            candidates.pop(position)
+            newly_covered = lane_coverage.pop(position)
+            kind = "BOUNDARY_COVERAGE" if not selected or not candidates else "COVERAGE_SWEEP"
+            fragment = PathFragment(
+                f"fragment_{start_index + len(result):04d}", points,
+                (region.region_id,), kind,
+            )
+            result.append(fragment)
+            relevant.append(fragment)
+            covered.update(newly_covered)
+            selected.add(bucket)
+    return result
+
+
+def _connector_coverage_fragments(connectors, cells, config, start_index):
+    """Add a small number of parallel lanes only for wide stair/ramp spans."""
+    result = []
+    maximum_gap = max(config.grid_spacing, config.maximum_coverage_lane_gap_m * config.units_per_meter)
+    for connector in connectors:
+        keys = [key for key in connector.cell_keys if key in cells]
+        if len(keys) < 4 or len(connector.points) < 2:
+            continue
+        start, end = connector.points[0], connector.points[-1]
+        along_axis = 0 if abs(end[0] - start[0]) >= abs(end[1] - start[1]) else 1
+        across_axis = 1 - along_axis
+        buckets = {}
+        for key in keys:
+            bucket = int(round(cells[key].point[across_axis] / max(config.grid_spacing, 1e-9)))
+            buckets.setdefault(bucket, []).append(key)
+        rows = []
+        for bucket, row in sorted(buckets.items()):
+            row.sort(key=lambda key: (cells[key].point[along_axis], cells[key].point[2], key))
+            if len(row) >= 2:
+                rows.append((bucket, row))
+        if len(rows) < 2:
+            continue
+        row_gap = abs(
+            cells[rows[1][1][0]].point[across_axis] - cells[rows[0][1][0]].point[across_axis]
+        )
+        stride = max(1, int(math.floor(maximum_gap / max(row_gap, 1e-9))))
+        selected = set(range(0, len(rows), stride))
+        selected.add(len(rows) - 1)
+        for row_index in sorted(selected):
+            _bucket, row = rows[row_index]
+            result.append(PathFragment(
+                f"fragment_{start_index + len(result):04d}",
+                [cells[key].point for key in row], connector.region_ids,
+                f"{connector.kind}_COVERAGE", connector.connector_id,
+            ))
     return result
 
 
@@ -877,6 +1042,9 @@ def generate_fragments(cells, graph, regions, connectors, membership, config,
     fragments.extend(_room_coverage_fragments(
         list(space_regions or ()), cells, graph, fragments, config, len(fragments)
     ))
+    fragments.extend(_complete_coverage_fragments(
+        regions, cells, graph, fragments, config, len(fragments)
+    ))
     for portal in portals or ():
         if len(portal.points) >= 2:
             fragments.append(PathFragment(
@@ -892,6 +1060,9 @@ def generate_fragments(cells, graph, regions, connectors, membership, config,
                 connector.kind,
                 connector.connector_id,
             ))
+    fragments.extend(_connector_coverage_fragments(
+        connectors, cells, config, len(fragments)
+    ))
     return fragments
 
 
@@ -982,16 +1153,23 @@ def plan_walkable_paths(
     *,
     edge_validator=None,
     reachable_seed_key=None,
+    reachable_seed_keys=None,
+    seed_bridges=(),
     stitch_fragments_enabled=True,
 ):
-    cells, graph = build_walkable_graph(cell_values, config, edge_validator=edge_validator)
+    seed_keys = [tuple(key) for key in (reachable_seed_keys or ())]
+    if reachable_seed_key is not None and tuple(reachable_seed_key) not in seed_keys:
+        seed_keys.append(tuple(reachable_seed_key))
+    cells, graph = build_walkable_graph(
+        cell_values, config, edge_validator=edge_validator, seed_bridges=seed_bridges,
+    )
     detected_cell_count = len(cells)
-    if reachable_seed_key is not None:
-        reachable = reachable_cell_keys(graph, reachable_seed_key)
+    if seed_keys:
+        reachable = reachable_cell_keys_union(graph, seed_keys)
         cells, graph = _restrict_graph(cells, graph, reachable)
     regions, membership = identify_floor_regions(cells, graph, config)
     connectors = identify_connectors(cells, graph, regions, membership, config)
-    if reachable_seed_key is not None:
+    if reachable_seed_key is not None and not reachable_seed_keys:
         reachable_regions = _reachable_region_ids(
             cells, graph, regions, membership, connectors, tuple(reachable_seed_key)
         )
@@ -1041,7 +1219,8 @@ def plan_walkable_paths(
         "walkable_cell_count": len(cells),
         "detected_walkable_cell_count": detected_cell_count,
         "excluded_unreachable_cell_count": detected_cell_count - len(cells),
-        "reachable_seed_key": list(reachable_seed_key) if reachable_seed_key is not None else None,
+        "reachable_seed_key": list(seed_keys[0]) if seed_keys else None,
+        "reachable_seed_count": len(seed_keys),
         "distance_field_max_m": maximum_mask_distance / max(config.units_per_meter, 1e-9),
         "floor_region_count": len(regions),
         "connector_count": len(connectors),
@@ -1051,6 +1230,8 @@ def plan_walkable_paths(
         "corridor_region_count": sum(item.kind == "CORRIDOR" for item in space_regions),
         "portal_count": len(portals),
         "path_spatial_coverage_ratio": len(covered) / max(1, len(cells)),
+        "covered_cell_count": len(covered),
+        "uncovered_cell_count": len(cells) - len(covered),
         "uncovered_room_count": len(uncovered_rooms),
         "uncovered_room_ids": uncovered_rooms,
         "raw_fragment_count": len(raw),
