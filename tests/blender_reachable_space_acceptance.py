@@ -60,7 +60,9 @@ assert stats["reachable_seed_key"] is not None, stats
 
 for obj in result["objects"]:
     for spline in obj.data.splines:
-        assert max(point.co.z for point in spline.points) < 2.0, (
+        # Automatic reachable paths are now true LOW/MID/HIGH layers.  All may
+        # rise within the lower room, but none may enter the sealed upper floor.
+        assert max(point.co.z for point in spline.points) < 3.0, (
             obj.name, [point.co.z for point in spline.points]
         )
 

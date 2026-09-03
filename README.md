@@ -1,6 +1,6 @@
 # Gaussian Splat COLMAP Dataset Generator
 
-当前版本：`1.4.0`
+当前版本：`1.4.1`
 
 实际升级基线：`blender_gs_colmap_exporter-1.2.7-chunked-background-render`
 
@@ -16,6 +16,14 @@ missing frame instead of rendering frame 1 again. Visibility-dependent per-objec
 outputs still require their original commit marker.
 
 Blender 5.1 扩展，用于在已知三维场景中生成训练相机、Cycles 图片、COLMAP `sparse/0`、`transforms.json` 和 `dataset_report.json`。
+
+## 门洞、房间覆盖与真实分层路径（v1.4.1）
+
+种子可达域现在保留真实门洞的连通拓扑：门洞探测使用较低的局部侵蚀半径和两格可见性补桥，最终相机样条仍按完整安全球半径逐段复核，因此可穿过真实开门，但不会穿墙、跨越无地面空洞或进入隔离模型夹层。
+
+可达掩膜会按局部净宽拆分为 `ROOM / CORRIDOR / PORTAL`。房间不再只有一条最长中心线，而是至少生成两条平行覆盖路径，并按可达网格覆盖率继续补线；走廊保留中心线，Portal 负责连接两侧空间。统计与调试输出包含房间、走廊、门洞及覆盖率。
+
+自动路径会实际生成 2/3/4 个局部高度层。每个采样点依据其正下方楼面和正上方天花板计算 LOW/MID/HIGH（或四层）高度，每一层独立密集采样、BVH 安全球检测、薄墙线段检测和碰撞区间裁切，再把合法 Segment 送入现有 Coverage、Overlap、Yaw/Pitch、Polar/Bridge 与 Pose Selection，不会被二次分层。
 
 ## Manual Walk Path（v1.4.0）
 

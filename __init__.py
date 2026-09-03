@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Gaussian Splat COLMAP Dataset Generator",
     "author": "Codex",
-    "version": (1, 4, 0),
+    "version": (1, 4, 1),
     "blender": (5, 1, 0),
     "location": "View3D/Shader Editor > Sidebar > GS; Render Properties > GS Dataset; Render Menu > GS Dataset",
     "description": "Automated Blender dataset renderer for Gaussian Splatting and COLMAP-style sparse models.",
@@ -362,7 +362,7 @@ def _fmt_time(seconds):
 
 
 def _addon_version_str():
-    return ".".join(str(v) for v in (globals().get("bl_info") or {}).get("version", (1, 4, 0)))
+    return ".".join(str(v) for v in (globals().get("bl_info") or {}).get("version", (1, 4, 1)))
 
 
 RENDER_STATE_NAME = "_gs_render_state.json"
@@ -1620,6 +1620,7 @@ class FloorplanCell:
     ceiling_z: float
     clearance: float = 0.0
     support_id: str = ""
+    portal_candidate: bool = False
 
 
 def _floorplan_horizontal_clearance(scene, depsgraph, point, margin, hdirs):
@@ -1737,6 +1738,13 @@ def _floorplan_probe_cells_3d(scene, settings, bounds):
         margin,
         float(getattr(settings, "scientific_camera_clearance", 0.25)) * units_per_meter,
     )
+    # Reachability topology gets a slightly less eroded portal mask.  The
+    # resulting splines are still checked later with ``safety_radius`` so this
+    # cannot admit a camera through a physically unsafe opening.
+    portal_radius = min(
+        safety_radius,
+        max(margin, 0.12 * units_per_meter),
+    )
     maximum_slope = math.radians(float(getattr(settings, "multilevel_maximum_slope", 42.0)))
     minimum_normal_z = math.cos(maximum_slope)
     epsilon = max(1e-5, 0.005 * units_per_meter)
@@ -1773,37 +1781,47 @@ def _floorplan_probe_cells_3d(scene, settings, bounds):
                 clearance = _floorplan_horizontal_clearance(
                     scene, depsgraph, point, clearance_search, hdirs
                 )
-                if clearance + 1e-6 < safety_radius:
+                if clearance + 1e-6 < portal_radius:
                     continue
-                footprint_ok = True
                 support_tolerance = max(
                     0.10 * units_per_meter,
                     float(getattr(settings, "multilevel_maximum_step", 0.38)) * units_per_meter,
                 )
-                for direction in hdirs[::3]:
-                    footprint = point + direction * safety_radius
-                    support_hit, support_location, support_normal, *_ = scene.ray_cast(
-                        depsgraph,
-                        footprint + Vector((0.0, 0.0, 0.05 * units_per_meter)),
-                        Vector((0.0, 0.0, -1.0)),
-                        distance=eye_height + support_tolerance + 0.10 * units_per_meter,
-                    )
-                    if (
-                        not support_hit
-                        or support_normal is None
-                        or support_normal.z < minimum_normal_z
-                        or abs(support_location.z - floor_location.z) > support_tolerance
-                    ):
-                        footprint_ok = False
-                        break
-                if not footprint_ok:
+                def footprint_supported(radius):
+                    for direction in hdirs[::3]:
+                        footprint = point + direction * radius
+                        support_hit, support_location, support_normal, *_ = scene.ray_cast(
+                            depsgraph,
+                            footprint + Vector((0.0, 0.0, 0.05 * units_per_meter)),
+                            Vector((0.0, 0.0, -1.0)),
+                            distance=eye_height + support_tolerance + 0.10 * units_per_meter,
+                        )
+                        if (
+                            not support_hit
+                            or support_normal is None
+                            or support_normal.z < minimum_normal_z
+                            or abs(support_location.z - floor_location.z) > support_tolerance
+                        ):
+                            return False
+                    return True
+
+                portal_candidate = clearance + 1e-6 < safety_radius
+                radius = portal_radius if portal_candidate else safety_radius
+                if not footprint_supported(radius):
+                    if radius < safety_radius or not footprint_supported(portal_radius):
+                        continue
+                    portal_candidate = True
+                if clearance + 1e-6 < safety_radius:
+                    portal_candidate = True
+                if portal_candidate and clearance + 1e-6 < portal_radius:
                     continue
                 z_key = int(round(floor_location.z / max(epsilon * 4.0, 0.05 * units_per_meter)))
                 key = (ix, iy, z_key)
                 cells[key] = FloorplanCell(
-                    key, x, y, floor_location.z, ceiling_location.z, clearance, support_id
+                    key, x, y, floor_location.z, ceiling_location.z, clearance,
+                    support_id, portal_candidate,
                 )
-    return cells, spacing, margin, hdirs, eye_height, units_per_meter
+    return cells, spacing, margin, hdirs, eye_height, units_per_meter, safety_radius
 
 
 def _floorplan_segment_clear_3d(
@@ -1974,6 +1992,19 @@ def _build_multilevel_debug(scene, result, cells, enabled):
         obj["gs_path_debug_category"] = "FLOOR_REGION"
         obj["gs_floor_region_id"] = region.region_id
         collection.objects.link(obj)
+    for index, space in enumerate(getattr(result, "space_regions", ())):
+        color = (0.10, 0.75, 0.95, 1.0) if space.kind == "ROOM" else (0.65, 0.35, 0.95, 1.0)
+        _path_debug_points(
+            collection, f"GS_{space.kind}_{index:02d}",
+            [(cells[key].x, cells[key].y, cells[key].floor_z + 0.055)
+             for key in space.cell_keys if key in cells],
+            color, space.kind,
+        )
+    for index, portal in enumerate(getattr(result, "portals", ())):
+        _path_debug_points(
+            collection, f"GS_Portal_{index:02d}", portal.points,
+            (1.0, 0.15, 0.80, 1.0), "PORTAL",
+        )
     for index, fragment in enumerate(result.raw_fragments):
         _path_debug_curve(collection, f"GS_RawFragment_{index:03d}", fragment.points,
                           (0.95, 0.25, 0.08, 1.0), "RAW_FRAGMENT")
@@ -1985,9 +2016,131 @@ def _build_multilevel_debug(scene, result, cells, enabled):
                           (0.95, 0.75, 0.08, 1.0), "STAIR_CONNECTION")
 
 
+def _floorplan_layer_z_values(floor_z, ceiling_z, layer_count, units_per_meter):
+    height = max(1e-6, ceiling_z - floor_z)
+    clearance = max(0.30 * units_per_meter, min(0.45 * units_per_meter, 0.12 * height))
+    clearance = min(clearance, max(0.05 * units_per_meter, height * 0.24))
+    low, high = floor_z + clearance, ceiling_z - clearance
+    if layer_count <= 1 or high <= low:
+        return [(floor_z + ceiling_z) * 0.5]
+    return [low + (high - low) * index / (layer_count - 1) for index in range(layer_count)]
+
+
+def _build_auto_reachable_layers(
+    scene, settings, result, cells, collection, spacing, eye_height,
+    units_per_meter, safety_radius,
+):
+    """Realize every base route as independently collision-cut local Z layers."""
+    layer_count = max(2, min(4, int(getattr(settings, "scientific_layer_count", 3))))
+    layer_names = scientific_planner._layer_names(layer_count)
+    bucket_size = max(spacing, 1e-9)
+    buckets = {}
+    for cell in cells.values():
+        bucket = (math.floor(cell.x / bucket_size), math.floor(cell.y / bucket_size))
+        buckets.setdefault(bucket, []).append(cell)
+
+    def local_cell(point):
+        bx, by = math.floor(point.x / bucket_size), math.floor(point.y / bucket_size)
+        candidates = []
+        expected_floor = point.z - eye_height
+        for dx in (-2, -1, 0, 1, 2):
+            for dy in (-2, -1, 0, 1, 2):
+                for cell in buckets.get((bx + dx, by + dy), ()):
+                    horizontal = math.hypot(point.x - cell.x, point.y - cell.y)
+                    if horizontal <= spacing * 1.80:
+                        candidates.append((abs(cell.floor_z - expected_floor), horizontal, cell.key, cell))
+        return min(candidates)[3] if candidates else None
+
+    cache = manual_walk_path._collision_cache(scene, force=True)
+    dense_spacing = max(0.05 * units_per_meter, min(0.10 * units_per_meter, spacing * 0.25))
+    minimum_length = max(0.40 * units_per_meter, dense_spacing * 5.0)
+    colors = (
+        (0.20, 0.80, 1.00, 1.0),
+        (0.20, 0.95, 0.40, 1.0),
+        (0.95, 0.72, 0.12, 1.0),
+        (0.75, 0.32, 0.95, 1.0),
+    )
+    objects = []
+    total_points = 0
+    invalid_intervals = 0
+    layer_segments = [0] * layer_count
+    for fragment_index, fragment in enumerate(result.final_fragments, 1):
+        base = manual_walk_path.resample_polyline(
+            [Vector(point) for point in fragment.points], dense_spacing
+        )
+        if len(base) < 2:
+            continue
+        local_cells = [local_cell(point) for point in base]
+        for layer_index, layer_name in enumerate(layer_names):
+            theoretical = []
+            missing = []
+            for point, cell in zip(base, local_cells):
+                if cell is None:
+                    theoretical.append(point.copy())
+                    missing.append(True)
+                    continue
+                z_values = _floorplan_layer_z_values(
+                    cell.floor_z, cell.ceiling_z, layer_count, units_per_meter
+                )
+                theoretical.append(Vector((point.x, point.y, z_values[layer_index])))
+                missing.append(False)
+            invalid = [
+                absent or manual_walk_path._point_collides(cache, point, safety_radius)
+                for absent, point in zip(missing, theoretical)
+            ]
+            # Dense center-segment ray checks catch thin walls between valid
+            # samples; the BVH sphere test above provides the lateral margin.
+            for index in range(len(theoretical) - 1):
+                left, right = theoretical[index], theoretical[index + 1]
+                delta = right - left
+                if delta.length <= 1e-8:
+                    continue
+                hit, *_ = scene.ray_cast(
+                    bpy.context.evaluated_depsgraph_get(), left + delta.normalized() * 1e-4,
+                    delta.normalized(), distance=max(0.0, delta.length - 2e-4),
+                )
+                if hit:
+                    invalid[index] = True
+                    invalid[index + 1] = True
+            valid_runs, rejected_runs = manual_walk_path.split_collision_intervals(
+                theoretical, invalid, safety_radius, minimum_length
+            )
+            invalid_intervals += len(rejected_runs)
+            for segment_index, run in enumerate(valid_runs, 1):
+                obj = _create_floorplan_curve(
+                    collection,
+                    f"GS_FloorPath_{layer_name}_{fragment_index:03d}_{segment_index:02d}",
+                    run, allow_3d=True,
+                )
+                if obj is None:
+                    continue
+                obj.color = colors[layer_index]
+                obj.show_in_front = True
+                obj.hide_render = True
+                obj["gs_pre_layered_path"] = True
+                obj["gs_auto_reachable_layer"] = True
+                obj["gs_path_layer_name"] = layer_name
+                obj["gs_path_layer_index"] = layer_index
+                obj["gs_path_layer_count"] = layer_count
+                obj["gs_path_fragment_kind"] = fragment.kind
+                obj["gs_floor_region_ids"] = ",".join(fragment.region_ids)
+                obj["gs_connector_id"] = fragment.connector_id
+                obj["gs_path_segment_index"] = segment_index
+                objects.append(obj)
+                total_points += len(run)
+                layer_segments[layer_index] += 1
+    return objects, total_points, {
+        "requested_layer_count": layer_count,
+        "actual_layer_count": sum(count > 0 for count in layer_segments),
+        "layer_segment_counts": layer_segments,
+        "layer_spline_count": len(objects),
+        "collision_cut_interval_count": invalid_intervals,
+    }
+
+
 def _build_scientific_floorplan_network_3d(scene, settings, bounds):
     _clear_multilevel_path_debug(scene)
-    cells, spacing, margin, hdirs, eye_height, units_per_meter = _floorplan_probe_cells_3d(
+    cells, spacing, margin, hdirs, eye_height, units_per_meter, safety_radius = _floorplan_probe_cells_3d(
         scene, settings, bounds
     )
     if not cells:
@@ -2007,6 +2160,8 @@ def _build_scientific_floorplan_network_3d(scene, settings, bounds):
         ),
         large_room_area_m2=float(getattr(settings, "multilevel_large_room_area", 28.0)),
         coverage_path_count=int(getattr(settings, "multilevel_coverage_paths", 2)),
+        room_minimum_lanes=max(2, int(getattr(settings, "multilevel_coverage_paths", 2))),
+        coverage_radius_m=max(0.50, float(getattr(settings, "scientific_minimum_step", 0.45)) * 2.5),
     )
     planner_cells = [path_planner_3d.WalkableCell(
         key=cell.key,
@@ -2014,11 +2169,12 @@ def _build_scientific_floorplan_network_3d(scene, settings, bounds):
         floor_z=cell.floor_z,
         clearance=cell.clearance,
         surface_id=cell.support_id,
+        portal_candidate=cell.portal_candidate,
     ) for cell in cells.values()]
 
     def valid(left, right):
         return _floorplan_segment_clear_3d(
-            scene, depsgraph, Vector(left), Vector(right), margin, hdirs,
+            scene, depsgraph, Vector(left), Vector(right), safety_radius, hdirs,
             eye_height, units_per_meter, config.maximum_connector_step_m,
         )
 
@@ -2066,29 +2222,17 @@ def _build_scientific_floorplan_network_3d(scene, settings, bounds):
     _clear_auto_floorplan_paths(scene)
     collection = bpy.data.collections.new("GS_FloorPath_Auto")
     scene.collection.children.link(collection)
-    objects = []
-    total_points = 0
-    for index, fragment in enumerate(result.final_fragments, 1):
-        points = [Vector(point) for point in fragment.points]
-        if len(points) < 2:
-            continue
-        obj = _create_floorplan_curve(
-            collection, f"GS_FloorPath_3D_{index:03d}", points, allow_3d=True
-        )
-        if obj is None:
-            continue
-        obj["gs_floorplan_layer"] = "3D"
-        obj["gs_path_fragment_kind"] = fragment.kind
-        obj["gs_floor_region_ids"] = ",".join(fragment.region_ids)
-        obj["gs_connector_id"] = fragment.connector_id
-        objects.append(obj)
-        total_points += len(points)
+    objects, total_points, layer_stats = _build_auto_reachable_layers(
+        scene, settings, result, cells, collection, spacing, eye_height,
+        units_per_meter, safety_radius,
+    )
     _build_multilevel_debug(
         scene, result, cells,
         bool(getattr(settings, "scientific_show_debug", False)),
     )
     if not objects:
         return None
+    result.stats.update(layer_stats)
     scene["gs_multilevel_path_stats"] = json.dumps(result.stats, ensure_ascii=False)
     return {
         "primary": objects[0], "collection": collection, "objects": objects,

@@ -836,17 +836,29 @@ def _make_curve_candidate_groups(cache, components, component_counts, progress=N
         cumulative = _polyline_metrics(points)
         stations = stations_by_component[component_index]
         source_object = component.get("object")
-        manual_layered = bool(source_object and source_object.get("gs_manual_valid_segment"))
+        manual_layered = bool(source_object and (
+            source_object.get("gs_pre_layered_path")
+            or source_object.get("gs_manual_valid_segment")
+        ))
         manual_layer_count = (
-            max(2, int(source_object.get("gs_manual_layer_count", layer_count)))
+            max(2, int(source_object.get(
+                "gs_path_layer_count",
+                source_object.get("gs_manual_layer_count", layer_count),
+            )))
             if manual_layered else layer_count
         )
         manual_layer_index = (
-            max(0, min(manual_layer_count - 1, int(source_object.get("gs_manual_layer_index", 0))))
+            max(0, min(manual_layer_count - 1, int(source_object.get(
+                "gs_path_layer_index",
+                source_object.get("gs_manual_layer_index", 0),
+            ))))
             if manual_layered else 0
         )
         manual_layer_name = (
-            str(source_object.get("gs_manual_layer_name", f"Manual_{manual_layer_index}"))
+            str(source_object.get(
+                "gs_path_layer_name",
+                source_object.get("gs_manual_layer_name", f"Layer_{manual_layer_index}"),
+            ))
             if manual_layered else ""
         )
         slot_definitions = (
@@ -998,8 +1010,14 @@ class CurveOriginProvider(OriginProvider):
             source = getattr(component.get("object"), "name", "")
             source_object = component.get("object")
             component_layer_count = (
-                max(2, int(source_object.get("gs_manual_layer_count", layer_count)))
-                if source_object and source_object.get("gs_manual_valid_segment") else layer_count
+                max(2, int(source_object.get(
+                    "gs_path_layer_count",
+                    source_object.get("gs_manual_layer_count", layer_count),
+                )))
+                if source_object and (
+                    source_object.get("gs_pre_layered_path")
+                    or source_object.get("gs_manual_valid_segment")
+                ) else layer_count
             )
             region_id = f"curve:{representative.component_index}"
             for candidate in group:

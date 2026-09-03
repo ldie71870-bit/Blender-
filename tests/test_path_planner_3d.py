@@ -13,11 +13,11 @@ sys.modules[SPEC.name] = planner
 SPEC.loader.exec_module(planner)
 
 
-def cell(x, y, z, layer=None, clearance=1.5, surface_id=""):
+def cell(x, y, z, layer=None, clearance=1.5, surface_id="", portal_candidate=False):
     layer = int(round(z * 100)) if layer is None else layer
     return planner.WalkableCell(
         (x, y, layer), (float(x), float(y), float(z + 1.6)),
-        float(z), clearance, surface_id,
+        float(z), clearance, surface_id, portal_candidate,
     )
 
 
@@ -132,6 +132,51 @@ class MultiLevelPlannerTests(unittest.TestCase):
         self.assertEqual(len(left) + len(doorway) + len(right), result.stats["walkable_cell_count"])
         self.assertEqual(0, result.stats["excluded_unreachable_cell_count"])
         self.assertTrue(any(point[0] >= 6.0 for fragment in result.final_fragments for point in fragment.points))
+
+    def test_real_door_portal_keeps_two_rooms_and_is_reported(self):
+        left = [cell(x, y, 0.0) for x in range(5) for y in range(5)]
+        door = [cell(5, 2, 0.0, clearance=0.35, portal_candidate=True)]
+        right = [cell(x, y, 0.0) for x in range(6, 11) for y in range(5)]
+        result = planner.plan_walkable_paths(
+            left + door + right,
+            self.config(room_minimum_lanes=2, coverage_target_ratio=0.80),
+            reachable_seed_key=(1, 2, 0),
+        )
+        self.assertEqual(0, result.stats["excluded_unreachable_cell_count"])
+        self.assertGreaterEqual(result.stats["room_region_count"], 2)
+        self.assertGreaterEqual(result.stats["portal_count"], 1)
+        self.assertTrue(any(fragment.kind in {"PORTAL", "STITCHED"} for fragment in result.final_fragments))
+
+    def test_three_rooms_connected_by_two_real_doors(self):
+        rooms = []
+        for start in (0, 6, 12):
+            rooms.extend(cell(x, y, 0.0) for x in range(start, start + 5) for y in range(5))
+        doors = [
+            cell(5, 2, 0.0, clearance=0.35, portal_candidate=True),
+            cell(11, 2, 0.0, clearance=0.35, portal_candidate=True),
+        ]
+        result = planner.plan_walkable_paths(
+            rooms + doors,
+            self.config(room_minimum_lanes=2),
+            reachable_seed_key=(1, 2, 0),
+        )
+        self.assertEqual(0, result.stats["excluded_unreachable_cell_count"])
+        self.assertGreaterEqual(result.stats["room_region_count"], 3)
+        self.assertGreaterEqual(result.stats["portal_count"], 2)
+        self.assertTrue(any(point[0] >= 12.0 for fragment in result.final_fragments for point in fragment.points))
+
+    def test_large_room_has_multiple_coverage_lanes_and_target_coverage(self):
+        room = [cell(x, y, 0.0) for x in range(12) for y in range(9)]
+        result = planner.plan_walkable_paths(
+            room,
+            self.config(room_minimum_lanes=3, coverage_radius_m=1.0, coverage_target_ratio=0.85),
+            reachable_seed_key=(1, 1, 0),
+            stitch_fragments_enabled=False,
+        )
+        room_lanes = [fragment for fragment in result.raw_fragments if fragment.kind == "ROOM_COVERAGE"]
+        self.assertGreaterEqual(len(room_lanes), 3)
+        self.assertGreaterEqual(result.stats["path_spatial_coverage_ratio"], 0.85)
+        self.assertEqual(0, result.stats["uncovered_room_count"])
 
     def test_upper_floor_is_excluded_without_stairs(self):
         lower = [cell(x, y, 0.0, 0) for x in range(4) for y in range(3)]
