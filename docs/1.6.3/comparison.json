@@ -1,0 +1,82 @@
+{
+  "roi": [
+    {
+      "covered": 3,
+      "total": 55,
+      "ratio": 0.05454545454545454
+    },
+    {
+      "covered": 34,
+      "total": 55,
+      "ratio": 0.6181818181818182
+    }
+  ],
+  "coverage_radius_m": 0.28,
+  "main_coordinates_identical": true,
+  "old_detail_lines": 48,
+  "new_detail_lines": 48,
+  "surface_before": [
+    {
+      "layer": "Low",
+      "target_count": 34603,
+      "main_observed": 28653,
+      "final_observed": 32646,
+      "main_ratio": 0.8280495910759182,
+      "final_ratio": 0.9434442100395919,
+      "detail_lines": 16,
+      "new_gap_cells": 36
+    },
+    {
+      "layer": "Middle",
+      "target_count": 50843,
+      "main_observed": 48112,
+      "final_observed": 49892,
+      "main_ratio": 0.9462856243730701,
+      "final_ratio": 0.9812953602265798,
+      "detail_lines": 16,
+      "new_gap_cells": 196
+    },
+    {
+      "layer": "High",
+      "target_count": 47971,
+      "main_observed": 45905,
+      "final_observed": 47312,
+      "main_ratio": 0.9569323132726022,
+      "final_ratio": 0.9862625336140585,
+      "detail_lines": 16,
+      "new_gap_cells": 243
+    }
+  ],
+  "surface_after": [
+    {
+      "layer": "Low",
+      "target_count": 34603,
+      "main_observed": 28653,
+      "final_observed": 32962,
+      "main_ratio": 0.8280495910759182,
+      "final_ratio": 0.9525763662110222,
+      "detail_lines": 16,
+      "new_gap_cells": 400
+    },
+    {
+      "layer": "Middle",
+      "target_count": 50843,
+      "main_observed": 48112,
+      "final_observed": 49767,
+      "main_ratio": 0.9462856243730701,
+      "final_ratio": 0.9788368113604626,
+      "detail_lines": 16,
+      "new_gap_cells": 389
+    },
+    {
+      "layer": "High",
+      "target_count": 47971,
+      "main_observed": 45905,
+      "final_observed": 47239,
+      "main_ratio": 0.9569323132726022,
+      "final_ratio": 0.9847407808884534,
+      "detail_lines": 16,
+      "new_gap_cells": 396
+    }
+  ]
+}
