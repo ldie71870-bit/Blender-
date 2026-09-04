@@ -1,30 +1,11 @@
 # Gaussian Splat COLMAP Dataset Generator
 
-最新发布：**1.6.2** · [下载安装包](releases/blender_gs_colmap_exporter-1.6.2-layer-gap-routing.zip) · [使用说明](versions/1.6.2/CONTOUR_GUIDE_zh.md) · [源码](versions/1.6.2)
+当前版本：`1.6.2`
 
-## 1.6.2：分层空隙补线与线形整理
+## 1.6.2 低位空隙、楼梯顶层与清晰排线
 
-- 跨相机高度检查可达性，保留家具后方和狭窄通道的低位空隙；细部通行网格与障碍净距独立设置。
-- 各高度层分别检查观察缺口并分配补线预算；楼梯顶层遇到顶棚时，尝试降低到安全高度。
-- 开放主线从端点连接，同高度交叉经避障验证后调整访问顺序，减少原路折返。
-- 主线与细部线按高度分组、分色显示，支持单独查看低层、中层或顶层；旧预览隐藏保留。
-
-当前 Luna 副本实测生成 12 条主线、48 条细部线。对比该场景原有 1.6.1 排线，主线急折返点从 58 处减少到 22 处；低层细部线从 8 条增加到 16 条。本轮补线使分层采样表面的充分观察比例从 91.94% 提升到 97.33%，另外补入 475 个通行空隙节点。分层表面指标与 1.6.1 混合各层的比例不能直接比较，也不代表最终相机视场或整个模型覆盖率。详见 [验证报告](docs/1.6.2/迭代结果.md)。
-
-![Luna 各高度层排线前后对照](docs/1.6.2/Luna_layer_gap_comparison.png)
-
-### 目录说明
-
-- `versions/1.6.2/`：完整插件源码及测试；运行源码与发布安装包逐文件一致。
-- `releases/`：Blender“从磁盘安装”所需 ZIP 及 SHA-256 校验文件；不要直接安装整个仓库 ZIP。
-- [1.6.1 源码](versions/1.6.1)与[历史验证报告](docs/1.6.1/迭代结果.md)保留。
-- 根目录保留原有 **1.4.2 行走示教方案**，以下旧版说明对应根目录代码。
-
-13 项算法测试及 Blender 楼梯、单位换算、分层空隙、重复生成、后台追加与取消验证通过。算法测试命令：`python -m unittest discover -s versions/1.6.2/tests -p "test_*.py"`。Blender 集成验证脚本也位于该目录。原始 Luna 场景、手工曲线和本地预览 `.blend` 未上传。
-
----
-
-根目录代码版本：`1.4.2`
+跨高度检查家具空隙的安全可达性，独立计算各层的表面观察与空间缺口；楼梯顶层按净空调整。主线减少原路折返和同高度交叉，预览按层分组并使用细彩线。
+安装参数、使用方法与验证范围见 [轮廓排线使用说明](CONTOUR_GUIDE_zh.md)，版本变更见 [CHANGELOG](CHANGELOG.md)。
 
 实际升级基线：`blender_gs_colmap_exporter-1.2.7-chunked-background-render`
 
@@ -40,34 +21,6 @@ missing frame instead of rendering frame 1 again. Visibility-dependent per-objec
 outputs still require their original commit marker.
 
 Blender 5.1 扩展，用于在已知三维场景中生成训练相机、Cycles 图片、COLMAP `sparse/0`、`transforms.json` 和 `dataset_report.json`。
-
-## 门洞、房间覆盖与真实分层路径（v1.4.1）
-
-种子可达域现在保留真实门洞的连通拓扑：门洞探测使用较低的局部侵蚀半径和两格可见性补桥，最终相机样条仍按完整安全球半径逐段复核，因此可穿过真实开门，但不会穿墙、跨越无地面空洞或进入隔离模型夹层。
-
-可达掩膜会按局部净宽拆分为 `ROOM / CORRIDOR / PORTAL`。房间不再只有一条最长中心线，而是至少生成两条平行覆盖路径，并按可达网格覆盖率继续补线；走廊保留中心线，Portal 负责连接两侧空间。统计与调试输出包含房间、走廊、门洞及覆盖率。
-
-自动路径会实际生成 2/3/4 个局部高度层。每个采样点依据其正下方楼面和正上方天花板计算 LOW/MID/HIGH（或四层）高度，每一层独立密集采样、BVH 安全球检测、薄墙线段检测和碰撞区间裁切，再把合法 Segment 送入现有 Coverage、Overlap、Yaw/Pitch、Polar/Bridge 与 Pose Selection，不会被二次分层。
-
-## Walk Guided Coverage / 行走引导全覆盖（v1.4.2）
-
-点击“开始空间示教”会启动 Blender Walk Navigation，并以 0.05 秒间隔持续记录当前视口的世界坐标 XYZ。示教数据保存为 `GS_WalkBasePath`，但它只作为已实际走过空间的 Reachability Seeds，绝不会直接转换为最终采集曲线。
-
-点击“分析可达区域并生成全覆盖路径”后，所有示教点先向下投射到真实 Mesh 地面，按 Floor Region 聚类并取各个可达岛的并集。相邻示教点可作为真实门洞/楼梯的连通证据，但仍必须通过墙体与地面物理验证，无法凭借穿墙示教创建假通道。随后每个可达房间使用 Boustrophedon 风格平行 Sweep Lane 填满，门洞通过 Portal 连接，楼梯保留为垂直连接器。
-
-规划器以 `Path Spatial Coverage` 检查每个可达网格到最近路径的距离；低于 98% 时自动添加 Sweep Lane。状态栏显示可达网格、路径数量、空间覆盖率和未覆盖格。最终路径按每个局部 Floor/Ceiling 生成实际 2/3/4 个高度层，逐层执行密集 Mesh 碰撞裁切后送入现有科学 Coverage 与 Pose 管线，场景仍只保留 `GS_CAPTURE_CAMERA`。
-
-## 3D 多楼层科学路径（v1.3.10）
-
-科学模式的自动路径默认启用 `3D Multi-Level Planning`、`Curve Smoothing` 和 `Fragment Stitching`。规划器会在同一个 XY 保存多个合法楼层样本，建立 `FloorRegion + Connector` 拓扑，并把楼梯、平台或坡道作为连续 XYZ 路径接入上下楼层。挑空处没有连续地面支撑，因此不会生成悬空路径。
-
-默认空间范围为“从种子可达空间”，起点可选 3D 光标或当前视角。规划器先校验相邻网格之间没有墙体阻挡，再只保留从起点沿地面、门洞、楼梯和坡道实际可达的三维连通分量；与起点隔离的模型空腔不会生成路径。“全部室内空间”仅在用户明确选择时启用。
-
-同一高度相邻但由不同 Mesh 承载的表面会拆分成独立 FloorRegion，避免建筑外壳、夹层和地板边缘在几何缝隙处被误并入主房间。真正跨 Mesh 的楼梯仍通过经过宽度、单调性和主楼层验证的 Connector 连接。
-
-走廊使用净空中心线并跟随 L/S/弧形空间；大房间在中心路径外仅补少量长偏移路径。平滑后的每段都会重新验证碰撞、水平净空、楼板和地面支撑，验证失败即保留安全的原始路径。PCA 平行线仍作为 3D 规划无法形成合法结果时的兼容回退。
-
-科学模式的新默认实现后端是 `SCIENTIFIC_POSE_SEQUENCE`。所有训练视角写入 `camera_sequence.json`，场景只保留一台 `GS_CAPTURE_CAMERA`；`Create Preview` 把位置和四元数旋转烘焙到这台相机的时间轴，正式渲染仍逐条读取 PoseSample，不使用 Render Animation。
 
 ## 平衡吞吐量的分段独立进程渲染（v1.2.6）
 
@@ -107,7 +60,7 @@ Blender 5.1 扩展，用于在已知三维场景中生成训练相机、Cycles �
 
 ## 科学单相机序列帧（v1.2.2，推荐）
 
-科学模式提供三种实现后端：`LEGACY_CUBEMAP_OBJECTS`、`SCIENTIFIC_CAMERA_OBJECTS` 和默认的 `SCIENTIFIC_POSE_SEQUENCE`。旧 `.blend` 若已保存后端设置会继续遵循原值；新建科学设置默认只保留单台捕获相机。
+科学模式新增三种实现后端：`LEGACY_CUBEMAP_OBJECTS`、`SCIENTIFIC_CAMERA_OBJECTS` 和推荐的 `SCIENTIFIC_POSE_SEQUENCE`。旧工程仍默认使用旧六面或多相机行为，不会自动切换或删除现有相机。
 
 选择 `单相机序列帧` 后，覆盖规划、近场保护、极向补拍、Bridge 和最终图片预算均不改变；插件把每个最终视角保存为 `PoseSample`，场景只保留一台 `GS_CAPTURE_CAMERA`。例如 720 个规划姿态仍输出 720 张训练图，只把 720 个 Blender 相机对象降为 1 个。
 

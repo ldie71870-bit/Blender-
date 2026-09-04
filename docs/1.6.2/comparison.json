@@ -1,0 +1,86 @@
+{
+  "before": {
+    "Low": {
+      "main_routes": 1,
+      "length_m": 83.36673968463529,
+      "sharp_reversals": 3,
+      "detail_lines": 8,
+      "min_z": 0.29395443201065063,
+      "max_z": 0.3133583068847656
+    },
+    "Middle": {
+      "main_routes": 1,
+      "length_m": 241.99363740302869,
+      "sharp_reversals": 28,
+      "detail_lines": 20,
+      "min_z": -3.0590426921844482,
+      "max_z": 1.3045563697814941
+    },
+    "High": {
+      "main_routes": 1,
+      "length_m": 222.19817330888165,
+      "sharp_reversals": 27,
+      "detail_lines": 20,
+      "min_z": -2.259042263031006,
+      "max_z": 2.1045563220977783
+    }
+  },
+  "after": {
+    "Low": {
+      "main_routes": 9,
+      "length_m": 104.92413024581938,
+      "sharp_reversals": 5,
+      "detail_lines": 16,
+      "min_z": -3.959042549133301,
+      "max_z": 0.31335824728012085
+    },
+    "Middle": {
+      "main_routes": 2,
+      "length_m": 152.0916444138696,
+      "sharp_reversals": 8,
+      "detail_lines": 16,
+      "min_z": -3.05904221534729,
+      "max_z": 1.2876557111740112
+    },
+    "High": {
+      "main_routes": 1,
+      "length_m": 173.30795109062382,
+      "sharp_reversals": 9,
+      "detail_lines": 16,
+      "min_z": -2.259042263031006,
+      "max_z": 2.08493971824646
+    }
+  },
+  "layers": [
+    {
+      "layer": "Low",
+      "target_count": 34603,
+      "main_observed": 28653,
+      "final_observed": 32646,
+      "main_ratio": 0.8280495910759182,
+      "final_ratio": 0.9434442100395919,
+      "detail_lines": 16,
+      "new_gap_cells": 36
+    },
+    {
+      "layer": "Middle",
+      "target_count": 50843,
+      "main_observed": 48112,
+      "final_observed": 49892,
+      "main_ratio": 0.9462856243730701,
+      "final_ratio": 0.9812953602265798,
+      "detail_lines": 16,
+      "new_gap_cells": 196
+    },
+    {
+      "layer": "High",
+      "target_count": 47971,
+      "main_observed": 45905,
+      "final_observed": 47312,
+      "main_ratio": 0.9569323132726022,
+      "final_ratio": 0.9862625336140585,
+      "detail_lines": 16,
+      "new_gap_cells": 243
+    }
+  ]
+}
