@@ -1,0 +1,24 @@
+{
+  "blender": "5.1.1",
+  "interaction": {
+    "headless_state_restore": "passed",
+    "interactive_gpu_draw": "passed",
+    "shortcut": "Alt+Shift+I",
+    "proxy_objects_created": 0,
+    "legacy_mesh_proxy_removed": true
+  },
+  "overlay_sample": {
+    "camera_points": 11,
+    "direction_line_vertices": 22,
+    "first_geometry_build_ms": 4.094,
+    "cached_geometry_read_ms": 0.023
+  },
+  "shell_regression": {
+    "stations": 252,
+    "cameras": 2939,
+    "filtered_cameras": 85,
+    "skipped_stations": 0,
+    "duplicate_origins": 0
+  },
+  "algorithm_tests": 16
+}
