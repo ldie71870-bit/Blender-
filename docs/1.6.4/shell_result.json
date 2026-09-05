@@ -1,0 +1,17 @@
+{
+  "scene": "Luna current snapshot with 1.6.3 verified curves",
+  "configured_station_count": 120,
+  "effective_station_count": 252,
+  "cameras_per_station_maximum": 12,
+  "theoretical_camera_count": 3024,
+  "generated_camera_count": 2938,
+  "filtered_camera_count": 86,
+  "skipped_station_count": 0,
+  "legacy_fallback_station_count": 0,
+  "adaptive_shrunk_station_count": 94,
+  "requested_radius_m": 0.18,
+  "minimum_actual_radius_m": 0.06,
+  "maximum_actual_radius_m": 0.18,
+  "default_surface_clearance_m": 0.03,
+  "default_station_rotation_step_degrees": 5.0
+}
