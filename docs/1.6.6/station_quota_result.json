@@ -1,0 +1,27 @@
+{
+  "blender": "5.1.1",
+  "feature_default_enabled": false,
+  "cad_plan": {
+    "orthographic_workbench_render": "passed",
+    "image_editor_switch": "passed",
+    "gpu_path_station_region_overlay": "passed",
+    "return_to_3d_view": "passed",
+    "persistent_scene_objects_created": 0
+  },
+  "station_quota": {
+    "disabled_baseline_preserved": true,
+    "exact_region_quota": true,
+    "outside_baseline_preserved": true,
+    "detail_minimum_preserved": true,
+    "shell_generation_uses_quota_samples": true,
+    "overlapping_regions_rejected": true
+  },
+  "shell_regression": {
+    "stations": 252,
+    "cameras": 2939,
+    "filtered_cameras": 85,
+    "skipped_stations": 0,
+    "duplicate_origins": 0
+  },
+  "algorithm_tests": 16
+}
