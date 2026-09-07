@@ -1,0 +1,184 @@
+{
+  "version": "1.6.7",
+  "source_output": "E:\\GSteST\\高斯渲染\\luna\\out2",
+  "recovered_station_count": 250,
+  "old_camera_count": 2885,
+  "surface_candidates": 320,
+  "safe_surface_detail_cameras": 320,
+  "combined_camera_count": 3205,
+  "elapsed_seconds": 4.711968899999192,
+  "regions": {
+    "coffee_table_leg_gap": {
+      "old_visible": 157,
+      "new_visible": 180,
+      "added_visible": 23,
+      "old_near_normal": 75,
+      "new_near_normal": 77,
+      "old_grazing": 39,
+      "new_grazing": 47,
+      "old_low_or_level": 24,
+      "new_low_or_level": 28,
+      "old_azimuth_sectors": 12,
+      "new_azimuth_sectors": 12,
+      "added_target_objects": [
+        "StaticMeshActor161",
+        "StaticMeshActor200",
+        "StaticMeshActor213",
+        "StaticMeshActor222",
+        "StaticMeshActor57",
+        "StaticMeshActor58",
+        "StaticMeshActor68",
+        "light_55x50x178_actor0_light_55x50x178"
+      ]
+    },
+    "coffee_table_lower_edge": {
+      "old_visible": 160,
+      "new_visible": 193,
+      "added_visible": 33,
+      "old_near_normal": 21,
+      "new_near_normal": 21,
+      "old_grazing": 94,
+      "new_grazing": 123,
+      "old_low_or_level": 9,
+      "new_low_or_level": 15,
+      "old_azimuth_sectors": 12,
+      "new_azimuth_sectors": 12,
+      "added_target_objects": [
+        "StaticMeshActor161",
+        "StaticMeshActor198",
+        "StaticMeshActor200",
+        "StaticMeshActor57",
+        "StaticMeshActor58",
+        "light_55x50x178_actor0_light_55x50x178"
+      ]
+    },
+    "sofa_table_narrow_gap": {
+      "old_visible": 130,
+      "new_visible": 157,
+      "added_visible": 27,
+      "old_near_normal": 37,
+      "new_near_normal": 37,
+      "old_grazing": 33,
+      "new_grazing": 41,
+      "old_low_or_level": 20,
+      "new_low_or_level": 23,
+      "old_azimuth_sectors": 11,
+      "new_azimuth_sectors": 11,
+      "added_target_objects": [
+        "StaticMeshActor161",
+        "StaticMeshActor200",
+        "StaticMeshActor213",
+        "StaticMeshActor222",
+        "StaticMeshActor57",
+        "StaticMeshActor58",
+        "StaticMeshActor68",
+        "StaticMeshActor99",
+        "light_55x50x178_actor0_light_55x50x178",
+        "light_55x50x178_actor0_light_55x50x178_glass"
+      ]
+    },
+    "bar_nook_table": {
+      "old_visible": 148,
+      "new_visible": 175,
+      "added_visible": 27,
+      "old_near_normal": 16,
+      "new_near_normal": 16,
+      "old_grazing": 99,
+      "new_grazing": 116,
+      "old_low_or_level": 35,
+      "new_low_or_level": 36,
+      "old_azimuth_sectors": 9,
+      "new_azimuth_sectors": 9,
+      "added_target_objects": [
+        "StaticMeshActor129",
+        "StaticMeshActor57",
+        "StaticMeshActor58",
+        "StaticMeshActor68",
+        "light_55x50x178_actor0_light_55x50x178"
+      ]
+    },
+    "bar_nook_stool": {
+      "old_visible": 17,
+      "new_visible": 19,
+      "added_visible": 2,
+      "old_near_normal": 2,
+      "new_near_normal": 2,
+      "old_grazing": 8,
+      "new_grazing": 10,
+      "old_low_or_level": 2,
+      "new_low_or_level": 4,
+      "old_azimuth_sectors": 4,
+      "new_azimuth_sectors": 4,
+      "added_target_objects": [
+        "StaticMeshActor222"
+      ]
+    },
+    "illuminated_sign": {
+      "old_visible": 198,
+      "new_visible": 224,
+      "added_visible": 26,
+      "old_near_normal": 51,
+      "new_near_normal": 67,
+      "old_grazing": 67,
+      "new_grazing": 72,
+      "old_low_or_level": 25,
+      "new_low_or_level": 29,
+      "old_azimuth_sectors": 12,
+      "new_azimuth_sectors": 12,
+      "added_target_objects": [
+        "Light_15_BP0_Light_15",
+        "StaticMeshActor129",
+        "StaticMeshActor161",
+        "StaticMeshActor190",
+        "StaticMeshActor198",
+        "StaticMeshActor200",
+        "StaticMeshActor264",
+        "StaticMeshActor57",
+        "StaticMeshActor59",
+        "StaticMeshActor72"
+      ]
+    },
+    "curved_counter_front": {
+      "old_visible": 204,
+      "new_visible": 227,
+      "added_visible": 23,
+      "old_near_normal": 46,
+      "new_near_normal": 60,
+      "old_grazing": 75,
+      "new_grazing": 81,
+      "old_low_or_level": 26,
+      "new_low_or_level": 34,
+      "old_azimuth_sectors": 12,
+      "new_azimuth_sectors": 12,
+      "added_target_objects": [
+        "StaticMeshActor129",
+        "StaticMeshActor161",
+        "StaticMeshActor190",
+        "StaticMeshActor198",
+        "StaticMeshActor200",
+        "StaticMeshActor57",
+        "StaticMeshActor59",
+        "StaticMeshActor72"
+      ]
+    },
+    "round_opening_plant": {
+      "old_visible": 78,
+      "new_visible": 99,
+      "added_visible": 21,
+      "old_near_normal": 26,
+      "new_near_normal": 34,
+      "old_grazing": 35,
+      "new_grazing": 44,
+      "old_low_or_level": 47,
+      "new_low_or_level": 66,
+      "old_azimuth_sectors": 8,
+      "new_azimuth_sectors": 8,
+      "added_target_objects": [
+        "StaticMeshActor129",
+        "StaticMeshActor57",
+        "StaticMeshActor68",
+        "StaticMeshActor97"
+      ]
+    }
+  }
+}
