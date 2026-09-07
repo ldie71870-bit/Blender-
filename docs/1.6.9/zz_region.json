@@ -1,0 +1,4324 @@
+{
+  "version": "1.6.9",
+  "scene": "luna/zz/Luna.blend",
+  "original_paths": 14,
+  "region": "ZZ L Region",
+  "region_vertices": [
+    [
+      -1.3833470344543457,
+      -2.9135234355926514,
+      0.15020388960838318
+    ],
+    [
+      4.63471794128418,
+      -2.9135234355926514,
+      0.15020388960838318
+    ],
+    [
+      4.63471794128418,
+      3.875013828277588,
+      0.15020388960838318
+    ],
+    [
+      1.625685453414917,
+      3.875013828277588,
+      0.15020388960838318
+    ],
+    [
+      1.625685453414917,
+      0.48074519634246826,
+      0.15020388960838318
+    ],
+    [
+      -1.3833470344543457,
+      0.48074519634246826,
+      0.15020388960838318
+    ],
+    [
+      -1.3833470344543457,
+      -2.9135234355926514,
+      2.58892502784729
+    ],
+    [
+      4.63471794128418,
+      -2.9135234355926514,
+      2.58892502784729
+    ],
+    [
+      4.63471794128418,
+      3.875013828277588,
+      2.58892502784729
+    ],
+    [
+      1.625685453414917,
+      3.875013828277588,
+      2.58892502784729
+    ],
+    [
+      1.625685453414917,
+      0.48074519634246826,
+      2.58892502784729
+    ],
+    [
+      -1.3833470344543457,
+      0.48074519634246826,
+      2.58892502784729
+    ]
+  ],
+  "all_segments_inside": true,
+  "segments": 492,
+  "route_count": 7,
+  "elapsed_seconds": 83.98133579999558,
+  "planner": {
+    "version": "1.6.9",
+    "region": "ZZ L Region",
+    "method": "LAYERED_CONTOUR",
+    "columns": 754,
+    "support_samples": 1630,
+    "raw_support_samples": 2232,
+    "distinct_z_bands": 7,
+    "probe_spacing_m": 0.25,
+    "clearance_m": 0.20000000298023224,
+    "lane_spacing_m": 0.800000011920929,
+    "layers": [
+      {
+        "floor_regions": 2,
+        "free_cells": 283,
+        "covered_cells": 205,
+        "path_coverage_ratio": 0.7243816254416962,
+        "coverage_radius": 0.5600000083446502,
+        "primitive_count": 2,
+        "route_count": 1,
+        "residual_patches": 0,
+        "split_contours": 0,
+        "bridge_travel": 2.6178577600119493,
+        "total_length": 19.294350703947288,
+        "component_count": 2,
+        "adapted_top_cells": 0,
+        "label": "Low",
+        "height": 0.30000001192092896
+      },
+      {
+        "floor_regions": 2,
+        "free_cells": 413,
+        "covered_cells": 354,
+        "path_coverage_ratio": 0.8571428571428571,
+        "coverage_radius": 0.5600000083446502,
+        "primitive_count": 4,
+        "route_count": 1,
+        "residual_patches": 0,
+        "split_contours": 1,
+        "bridge_travel": 6.059948613247637,
+        "total_length": 38.025354332682575,
+        "component_count": 2,
+        "adapted_top_cells": 0,
+        "label": "Middle",
+        "height": 1.2000000476837158
+      },
+      {
+        "floor_regions": 1,
+        "free_cells": 365,
+        "covered_cells": 349,
+        "path_coverage_ratio": 0.9561643835616438,
+        "coverage_radius": 0.5600000083446502,
+        "primitive_count": 2,
+        "route_count": 1,
+        "residual_patches": 0,
+        "split_contours": 0,
+        "bridge_travel": 2.1706814370048506,
+        "total_length": 32.42712707829843,
+        "component_count": 1,
+        "adapted_top_cells": 0,
+        "label": "Middle_2",
+        "height": 1.7000000476837158
+      },
+      {
+        "floor_regions": 1,
+        "free_cells": 374,
+        "covered_cells": 358,
+        "path_coverage_ratio": 0.9572192513368984,
+        "coverage_radius": 0.5600000083446502,
+        "primitive_count": 2,
+        "route_count": 1,
+        "residual_patches": 0,
+        "split_contours": 0,
+        "bridge_travel": 2.1706814370048506,
+        "total_length": 33.43024872028527,
+        "component_count": 1,
+        "adapted_top_cells": 0,
+        "label": "High",
+        "height": 2.0
+      }
+    ],
+    "route_count": 7,
+    "ray_count": 731366,
+    "elapsed_seconds": 83.70963599999959,
+    "collision_check": "14-direction clearance, 9-ray segment tube, <=0.15m interior sampling",
+    "main_route_count": 4,
+    "detail_coverage": null,
+    "doorway_peek": {
+      "diagnostics": {
+        "samples": 230,
+        "openings": 2078,
+        "unsafe": 410,
+        "near_existing": 823,
+        "clear_origins": 230
+      },
+      "candidates": 845,
+      "accepted": 8,
+      "length_m": 7.680000168495266,
+      "paths": [
+        {
+          "layer": "High",
+          "points": [
+            [
+              2.068021774291992,
+              3.3640005588531494,
+              2.001314163208008
+            ],
+            [
+              2.540729522705078,
+              3.280649423599243,
+              2.001314163208008
+            ]
+          ],
+          "target": [
+            3.0331335067749023,
+            3.1938252449035645,
+            2.001314163208008
+          ]
+        },
+        {
+          "layer": "Low",
+          "points": [
+            [
+              2.5821034908294678,
+              2.9096996784210205,
+              0.30089107155799866
+            ],
+            [
+              2.4154012203216553,
+              1.9642841815948486,
+              0.30089107155799866
+            ]
+          ],
+          "target": [
+            2.3285770416259766,
+            1.471880316734314,
+            0.30089107155799866
+          ]
+        },
+        {
+          "layer": "Low",
+          "points": [
+            [
+              2.5821034908294678,
+              2.9096996784210205,
+              0.30089107155799866
+            ],
+            [
+              1.636687994003296,
+              2.742997407913208,
+              0.30089107155799866
+            ]
+          ],
+          "target": [
+            1.1442841291427612,
+            2.6561732292175293,
+            0.30089107155799866
+          ]
+        },
+        {
+          "layer": "Low",
+          "points": [
+            [
+              2.3666529655456543,
+              2.268768548965454,
+              0.3008583188056946
+            ],
+            [
+              2.7823452949523926,
+              2.5087685585021973,
+              0.3008583188056946
+            ]
+          ],
+          "target": [
+            4.76298713684082,
+            3.652292490005493,
+            0.3008583188056946
+          ]
+        },
+        {
+          "layer": "Low",
+          "points": [
+            [
+              3.7187299728393555,
+              -2.2559714317321777,
+              0.30085843801498413
+            ],
+            [
+              3.51035213470459,
+              -1.074202060699463,
+              0.30085843801498413
+            ]
+          ],
+          "target": [
+            3.423527956008911,
+            -0.5817981958389282,
+            0.30085843801498413
+          ]
+        },
+        {
+          "layer": "Middle",
+          "points": [
+            [
+              1.9599639177322388,
+              0.4725605249404907,
+              1.2008583545684814
+            ],
+            [
+              3.141733169555664,
+              0.2641826868057251,
+              1.2008583545684814
+            ]
+          ],
+          "target": [
+            4.442986965179443,
+            0.03473653271794319,
+            1.2008583545684814
+          ]
+        },
+        {
+          "layer": "Middle_2",
+          "points": [
+            [
+              0.09056343883275986,
+              -1.5144026279449463,
+              1.7008583545684814
+            ],
+            [
+              -0.3198607563972473,
+              -2.642033815383911,
+              1.7008583545684814
+            ]
+          ],
+          "target": [
+            -0.4908708333969116,
+            -3.11188006401062,
+            1.7008583545684814
+          ]
+        },
+        {
+          "layer": "High",
+          "points": [
+            [
+              4.235257148742676,
+              3.6464176177978516,
+              2.0009593963623047
+            ],
+            [
+              3.1960268020629883,
+              3.046417713165283,
+              2.0009593963623047
+            ]
+          ],
+          "target": [
+            2.763014078140259,
+            2.796417713165283,
+            2.0009593963623047
+          ]
+        }
+      ]
+    },
+    "camera_surface_audit": {
+      "sampled_surfaces": 323,
+      "under_three_diverse_views": 67,
+      "added_routes": 1,
+      "surfaces": [
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            -0.3312765955924988,
+            -0.021724790334701538,
+            0.8338938355445862
+          ],
+          "visible_cameras": 68,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            0.229009211063385,
+            -0.16458676755428314,
+            0.5127350687980652
+          ],
+          "visible_cameras": 128,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            0.006351009011268616,
+            0.3264427185058594,
+            0.42970550060272217
+          ],
+          "visible_cameras": 74,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            0.30156683921813965,
+            0.1904778778553009,
+            0.4412132799625397
+          ],
+          "visible_cameras": 94,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            0.6280330419540405,
+            0.27736109495162964,
+            0.276169091463089
+          ],
+          "visible_cameras": 87,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            0.25358080863952637,
+            0.03867122530937195,
+            0.24073024094104767
+          ],
+          "visible_cameras": 5,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            -0.08109860122203827,
+            0.47476381063461304,
+            0.25496479868888855
+          ],
+          "visible_cameras": 2,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            -0.11263927072286606,
+            0.04249252378940582,
+            0.6301805377006531
+          ],
+          "visible_cameras": 137,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            -0.1586678922176361,
+            0.0673786997795105,
+            0.49629098176956177
+          ],
+          "visible_cameras": 80,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            0.21486607193946838,
+            -0.2353590875864029,
+            0.7760223150253296
+          ],
+          "visible_cameras": 155,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            0.037063270807266235,
+            -0.040491025894880295,
+            0.7048826217651367
+          ],
+          "visible_cameras": 160,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            -0.021334707736968994,
+            -0.2794382870197296,
+            0.6899001598358154
+          ],
+          "visible_cameras": 2,
+          "diverse_views": 2
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            0.1049611046910286,
+            0.07267609983682632,
+            0.21019485592842102
+          ],
+          "visible_cameras": 8,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor201",
+          "point": [
+            -0.29142332077026367,
+            -0.15740251541137695,
+            0.6604438424110413
+          ],
+          "visible_cameras": 5,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor200",
+          "point": [
+            1.8173744678497314,
+            2.174208879470825,
+            0.36811399459838867
+          ],
+          "visible_cameras": 163,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor200",
+          "point": [
+            1.8170477151870728,
+            2.442427635192871,
+            0.2870406210422516
+          ],
+          "visible_cameras": 102,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor200",
+          "point": [
+            1.9878180027008057,
+            2.1913881301879883,
+            0.15054190158843994
+          ],
+          "visible_cameras": 43,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor200",
+          "point": [
+            1.6559268236160278,
+            1.9865647554397583,
+            0.2609134912490845
+          ],
+          "visible_cameras": 115,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor200",
+          "point": [
+            1.8008428812026978,
+            2.0137641429901123,
+            0.1912015676498413
+          ],
+          "visible_cameras": 81,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor200",
+          "point": [
+            1.8480243682861328,
+            1.9441219568252563,
+            0.17667096853256226
+          ],
+          "visible_cameras": 96,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor200",
+          "point": [
+            1.710512399673462,
+            1.9956209659576416,
+            0.29699698090553284
+          ],
+          "visible_cameras": 122,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor260",
+          "point": [
+            3.793097734451294,
+            3.1649255752563477,
+            0.7869272828102112
+          ],
+          "visible_cameras": 23,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor260",
+          "point": [
+            3.702753782272339,
+            3.169456720352173,
+            0.8098328113555908
+          ],
+          "visible_cameras": 73,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor260",
+          "point": [
+            3.785590410232544,
+            2.9491889476776123,
+            0.8106313347816467
+          ],
+          "visible_cameras": 72,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor260",
+          "point": [
+            3.6300244331359863,
+            2.9406118392944336,
+            0.7844365835189819
+          ],
+          "visible_cameras": 76,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor260",
+          "point": [
+            3.807943105697632,
+            3.1019399166107178,
+            0.7690858840942383
+          ],
+          "visible_cameras": 13,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor221",
+          "point": [
+            4.033316135406494,
+            2.9602208137512207,
+            0.8522654175758362
+          ],
+          "visible_cameras": 70,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor221",
+          "point": [
+            4.204049587249756,
+            3.018022060394287,
+            0.7681126594543457
+          ],
+          "visible_cameras": 56,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor221",
+          "point": [
+            4.31563138961792,
+            3.168513536453247,
+            0.7689339518547058
+          ],
+          "visible_cameras": 48,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor221",
+          "point": [
+            4.084098815917969,
+            3.124481678009033,
+            0.7732212543487549
+          ],
+          "visible_cameras": 61,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor221",
+          "point": [
+            4.327451229095459,
+            3.0509543418884277,
+            1.0341877937316895
+          ],
+          "visible_cameras": 21,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor221",
+          "point": [
+            4.377756118774414,
+            3.0750746726989746,
+            0.8387390971183777
+          ],
+          "visible_cameras": 18,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor202",
+          "point": [
+            3.524867296218872,
+            3.4720757007598877,
+            0.3108227550983429
+          ],
+          "visible_cameras": 34,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor202",
+          "point": [
+            4.016659259796143,
+            3.4708826541900635,
+            0.28544220328330994
+          ],
+          "visible_cameras": 22,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor202",
+          "point": [
+            3.509053945541382,
+            3.6824886798858643,
+            0.158955380320549
+          ],
+          "visible_cameras": 34,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor202",
+          "point": [
+            3.510528326034546,
+            3.7072861194610596,
+            0.2874546945095062
+          ],
+          "visible_cameras": 35,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor202",
+          "point": [
+            4.011300563812256,
+            3.60455060005188,
+            0.4098435640335083
+          ],
+          "visible_cameras": 7,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor202",
+          "point": [
+            3.503582000732422,
+            3.760740041732788,
+            0.37589511275291443
+          ],
+          "visible_cameras": 38,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor202",
+          "point": [
+            3.8331260681152344,
+            3.7550811767578125,
+            0.29886478185653687
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            3.896030902862549,
+            2.382215738296509,
+            0.29778173565864563
+          ],
+          "visible_cameras": 35,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            4.155723571777344,
+            2.6969282627105713,
+            0.33465731143951416
+          ],
+          "visible_cameras": 6,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            4.123821258544922,
+            2.3035545349121094,
+            0.406857430934906
+          ],
+          "visible_cameras": 44,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            3.9627749919891357,
+            2.321654796600342,
+            0.2224634885787964
+          ],
+          "visible_cameras": 23,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            4.282677173614502,
+            2.5204596519470215,
+            0.2644287049770355
+          ],
+          "visible_cameras": 3,
+          "diverse_views": 2
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            4.228745937347412,
+            2.366847515106201,
+            0.20619140565395355
+          ],
+          "visible_cameras": 1,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            4.043940544128418,
+            2.311861753463745,
+            0.15084795653820038
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            4.198488712310791,
+            2.500153064727783,
+            0.19543933868408203
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            4.056763648986816,
+            2.3114542961120605,
+            0.37160858511924744
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor208",
+          "point": [
+            4.236911296844482,
+            2.409907817840576,
+            0.4158421754837036
+          ],
+          "visible_cameras": 49,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.1271235942840576,
+            2.379469633102417,
+            0.29778221249580383
+          ],
+          "visible_cameras": 48,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.3868162631988525,
+            2.6941821575164795,
+            0.33465778827667236
+          ],
+          "visible_cameras": 13,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.094282388687134,
+            2.4556684494018555,
+            0.38260418176651
+          ],
+          "visible_cameras": 58,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.3549139499664307,
+            2.3008084297180176,
+            0.4068579077720642
+          ],
+          "visible_cameras": 53,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.1938676834106445,
+            2.31890869140625,
+            0.2224639654159546
+          ],
+          "visible_cameras": 39,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.51377010345459,
+            2.5177135467529297,
+            0.2644291818141937
+          ],
+          "visible_cameras": 12,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.4598388671875,
+            2.3641014099121094,
+            0.20619188249111176
+          ],
+          "visible_cameras": 4,
+          "diverse_views": 3
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.4295811653137207,
+            2.4974069595336914,
+            0.19543981552124023
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.287856340408325,
+            2.3087081909179688,
+            0.37160906195640564
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor222",
+          "point": [
+            3.468003988265991,
+            2.4071617126464844,
+            0.4158426523208618
+          ],
+          "visible_cameras": 69,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            3.842987298965454,
+            1.092130184173584,
+            0.8742925524711609
+          ],
+          "visible_cameras": 121,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            4.256187915802002,
+            0.507608950138092,
+            0.9009589552879333
+          ],
+          "visible_cameras": 53,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            2.632615566253662,
+            1.8228791952133179,
+            0.6877775192260742
+          ],
+          "visible_cameras": 1,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            4.5832648277282715,
+            0.8046024441719055,
+            1.5709412097930908
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            2.515322685241699,
+            1.8073855638504028,
+            0.4119614064693451
+          ],
+          "visible_cameras": 98,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            4.423399925231934,
+            1.1327567100524902,
+            1.0646806955337524
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            2.4870057106018066,
+            1.7307822704315186,
+            0.8815264105796814
+          ],
+          "visible_cameras": 155,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            4.267798900604248,
+            1.2975484132766724,
+            1.8293665647506714
+          ],
+          "visible_cameras": 59,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            4.19667387008667,
+            1.38582444190979,
+            0.6423808336257935
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            2.993494749069214,
+            2.0092954635620117,
+            0.33954012393951416
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            2.435361385345459,
+            0.07606595754623413,
+            0.19804731011390686
+          ],
+          "visible_cameras": 73,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            3.106229782104492,
+            1.9793477058410645,
+            0.601615309715271
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            3.097951650619507,
+            -0.08282852172851562,
+            0.3027232587337494
+          ],
+          "visible_cameras": 20,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            3.112832546234131,
+            1.2436912059783936,
+            0.30293095111846924
+          ],
+          "visible_cameras": 31,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor129",
+          "point": [
+            2.8178040981292725,
+            1.2410507202148438,
+            0.9002988338470459
+          ],
+          "visible_cameras": 152,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor19",
+          "point": [
+            -1.170179843902588,
+            -0.8632690906524658,
+            1.241582989692688
+          ],
+          "visible_cameras": 53,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor19",
+          "point": [
+            -0.8383963704109192,
+            -0.8046708106994629,
+            1.2936071157455444
+          ],
+          "visible_cameras": 54,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor19",
+          "point": [
+            -0.9694947600364685,
+            -0.8219946622848511,
+            1.287872076034546
+          ],
+          "visible_cameras": 51,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor19",
+          "point": [
+            -1.263624668121338,
+            -0.8971779346466064,
+            1.2695300579071045
+          ],
+          "visible_cameras": 51,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor19",
+          "point": [
+            -0.6170543432235718,
+            -0.8170835375785828,
+            1.2634682655334473
+          ],
+          "visible_cameras": 51,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor19",
+          "point": [
+            2.655303716659546,
+            -0.5296865701675415,
+            0.5383001565933228
+          ],
+          "visible_cameras": 121,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor19",
+          "point": [
+            2.5808188915252686,
+            -0.37721163034439087,
+            0.5253614187240601
+          ],
+          "visible_cameras": 143,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor210",
+          "point": [
+            2.6583993434906006,
+            0.09987697005271912,
+            0.9855538010597229
+          ],
+          "visible_cameras": 161,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor210",
+          "point": [
+            2.7449700832366943,
+            -0.05822569876909256,
+            0.9014010429382324
+          ],
+          "visible_cameras": 122,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor210",
+          "point": [
+            2.8221077919006348,
+            0.07063618302345276,
+            0.9063111543655396
+          ],
+          "visible_cameras": 106,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor210",
+          "point": [
+            2.912551164627075,
+            -0.14197993278503418,
+            0.9022223353385925
+          ],
+          "visible_cameras": 98,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor210",
+          "point": [
+            3.000927686691284,
+            -0.13405662775039673,
+            0.9022223353385925
+          ],
+          "visible_cameras": 93,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor210",
+          "point": [
+            2.798830509185791,
+            -0.1740340143442154,
+            1.1674761772155762
+          ],
+          "visible_cameras": 134,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor210",
+          "point": [
+            2.806758403778076,
+            0.12283362448215485,
+            0.9116893410682678
+          ],
+          "visible_cameras": 119,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor263",
+          "point": [
+            3.437497138977051,
+            1.5131785869598389,
+            0.9029194712638855
+          ],
+          "visible_cameras": 30,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor263",
+          "point": [
+            3.415076494216919,
+            1.5983693599700928,
+            0.9879895448684692
+          ],
+          "visible_cameras": 112,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor263",
+          "point": [
+            3.4413082599639893,
+            1.5101929903030396,
+            0.9277635216712952
+          ],
+          "visible_cameras": 55,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor263",
+          "point": [
+            3.4417500495910645,
+            1.6237475872039795,
+            0.9023722410202026
+          ],
+          "visible_cameras": 38,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor35",
+          "point": [
+            4.322788238525391,
+            -0.056922271847724915,
+            0.8906099796295166
+          ],
+          "visible_cameras": 94,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor35",
+          "point": [
+            3.9829587936401367,
+            0.2186376452445984,
+            0.8956767320632935
+          ],
+          "visible_cameras": 49,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor35",
+          "point": [
+            4.199386119842529,
+            -0.19720904529094696,
+            0.9048271179199219
+          ],
+          "visible_cameras": 83,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor35",
+          "point": [
+            4.145678520202637,
+            -0.2443428337574005,
+            0.9062522649765015
+          ],
+          "visible_cameras": 111,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor35",
+          "point": [
+            3.993441104888916,
+            0.22367146611213684,
+            0.7481096386909485
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor35",
+          "point": [
+            4.136004447937012,
+            0.09587395191192627,
+            0.7481095194816589
+          ],
+          "visible_cameras": 5,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor35",
+          "point": [
+            4.168521881103516,
+            0.07693320512771606,
+            0.7481666207313538
+          ],
+          "visible_cameras": 6,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor35",
+          "point": [
+            4.338098049163818,
+            -0.1717204451560974,
+            0.9408167004585266
+          ],
+          "visible_cameras": 98,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor264",
+          "point": [
+            4.32822847366333,
+            -0.6111708283424377,
+            1.1866958141326904
+          ],
+          "visible_cameras": 1,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor264",
+          "point": [
+            4.218744277954102,
+            -0.7526103854179382,
+            1.073708415031433
+          ],
+          "visible_cameras": 34,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor264",
+          "point": [
+            4.283989906311035,
+            -0.7350062131881714,
+            1.0736030340194702
+          ],
+          "visible_cameras": 1,
+          "diverse_views": 1,
+          "proposed_diverse_views": 2
+        },
+        {
+          "object": "StaticMeshActor264",
+          "point": [
+            4.219386100769043,
+            -0.4536725878715515,
+            0.9841411709785461
+          ],
+          "visible_cameras": 89,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor264",
+          "point": [
+            4.271735191345215,
+            -0.38567593693733215,
+            0.9774008393287659
+          ],
+          "visible_cameras": 53,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor264",
+          "point": [
+            4.14516019821167,
+            -0.5777453184127808,
+            0.9992017149925232
+          ],
+          "visible_cameras": 83,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor264",
+          "point": [
+            4.321170330047607,
+            -0.5362838506698608,
+            1.201163649559021
+          ],
+          "visible_cameras": 65,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3763203620910645,
+            0.21116045117378235,
+            1.5052270889282227
+          ],
+          "visible_cameras": 47,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3096537590026855,
+            -0.20519891381263733,
+            1.5052270889282227
+          ],
+          "visible_cameras": 51,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3096537590026855,
+            0.21116045117378235,
+            1.5252270698547363
+          ],
+          "visible_cameras": 67,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3763203620910645,
+            -0.20519891381263733,
+            1.5252270698547363
+          ],
+          "visible_cameras": 58,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3096537590026855,
+            0.6275198459625244,
+            1.5118937492370605
+          ],
+          "visible_cameras": 52,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3763203620910645,
+            -0.6215583086013794,
+            1.5118937492370605
+          ],
+          "visible_cameras": 27,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.442986965179443,
+            0.21116045117378235,
+            1.5118937492370605
+          ],
+          "visible_cameras": 15,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.442986965179443,
+            -0.20519891381263733,
+            1.5185604095458984
+          ],
+          "visible_cameras": 6,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3763203620910645,
+            0.21116045117378235,
+            1.8242261409759521
+          ],
+          "visible_cameras": 79,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3096537590026855,
+            -0.20519891381263733,
+            1.8242261409759521
+          ],
+          "visible_cameras": 79,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3096537590026855,
+            0.21116045117378235,
+            1.8442261219024658
+          ],
+          "visible_cameras": 30,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3763203620910645,
+            -0.20519891381263733,
+            1.8442261219024658
+          ],
+          "visible_cameras": 26,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor111",
+          "point": [
+            4.3096537590026855,
+            0.6275198459625244,
+            1.83089280128479
+          ],
+          "visible_cameras": 58,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor262",
+          "point": [
+            4.389013290405273,
+            0.3055301010608673,
+            1.7327662706375122
+          ],
+          "visible_cameras": 23,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor262",
+          "point": [
+            4.328524589538574,
+            0.3037947118282318,
+            1.5265320539474487
+          ],
+          "visible_cameras": 15,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor262",
+          "point": [
+            4.410251617431641,
+            0.30960696935653687,
+            1.651309609413147
+          ],
+          "visible_cameras": 18,
+          "diverse_views": 3
+        },
+        {
+          "object": "StaticMeshActor262",
+          "point": [
+            4.410031318664551,
+            0.15540525317192078,
+            1.7184208631515503
+          ],
+          "visible_cameras": 16,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor261",
+          "point": [
+            4.387650489807129,
+            0.5292547941207886,
+            1.7327662706375122
+          ],
+          "visible_cameras": 29,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor261",
+          "point": [
+            4.32716178894043,
+            0.5275194048881531,
+            1.5265320539474487
+          ],
+          "visible_cameras": 14,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor261",
+          "point": [
+            4.408888816833496,
+            0.5333316922187805,
+            1.651309609413147
+          ],
+          "visible_cameras": 36,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor261",
+          "point": [
+            4.408668518066406,
+            0.37912997603416443,
+            1.7184208631515503
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            4.015302658081055,
+            1.7438713312149048,
+            1.8457849025726318
+          ],
+          "visible_cameras": 1,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            3.749058246612549,
+            1.837825894355774,
+            1.895932912826538
+          ],
+          "visible_cameras": 13,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            4.5691328048706055,
+            1.656604528427124,
+            2.2763969898223877
+          ],
+          "visible_cameras": 21,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            3.87954044342041,
+            1.7780132293701172,
+            1.9782427549362183
+          ],
+          "visible_cameras": 9,
+          "diverse_views": 2
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            4.631204605102539,
+            1.6881147623062134,
+            1.9530502557754517
+          ],
+          "visible_cameras": 7,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            4.166172504425049,
+            1.9870179891586304,
+            1.7490441799163818
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            3.8576056957244873,
+            1.9131501913070679,
+            1.3221333026885986
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            4.093617916107178,
+            1.6572093963623047,
+            1.6268219947814941
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            4.41634464263916,
+            1.7829985618591309,
+            1.3610849380493164
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            3.9583163261413574,
+            1.6301847696304321,
+            1.1902059316635132
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            3.983555316925049,
+            1.7836079597473145,
+            1.8164443969726562
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            4.059760570526123,
+            1.7337474822998047,
+            1.588865876197815
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            3.933091163635254,
+            1.9137344360351562,
+            1.5862233638763428
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            4.582400798797607,
+            1.7191798686981201,
+            2.0666048526763916
+          ],
+          "visible_cameras": 5,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor209",
+          "point": [
+            4.588890075683594,
+            1.8371113538742065,
+            1.5655769109725952
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor45",
+          "point": [
+            4.542986869812012,
+            0.9000803828239441,
+            1.1676255464553833
+          ],
+          "visible_cameras": 4,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor45",
+          "point": [
+            4.442986965179443,
+            -0.23812270164489746,
+            1.1676255464553833
+          ],
+          "visible_cameras": 93,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            0.6757785081863403,
+            -0.9136208295822144,
+            1.741776466369629
+          ],
+          "visible_cameras": 1,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            -1.2863430976867676,
+            -0.01755988597869873,
+            0.3081390857696533
+          ],
+          "visible_cameras": 96,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            0.7468217611312866,
+            -0.9669007062911987,
+            0.5811868906021118
+          ],
+          "visible_cameras": 133,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            -1.0231366157531738,
+            -0.374529629945755,
+            1.4668856859207153
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            -0.13735410571098328,
+            -0.7107698917388916,
+            1.878901720046997
+          ],
+          "visible_cameras": 127,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            0.7128181457519531,
+            -1.0244684219360352,
+            1.878901720046997
+          ],
+          "visible_cameras": 83,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            -0.4294551610946655,
+            -0.7777698636054993,
+            0.987687349319458
+          ],
+          "visible_cameras": 22,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            -0.2961600124835968,
+            -0.7920244336128235,
+            1.7416406869888306
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            0.7485001087188721,
+            -0.9521614909172058,
+            2.1531522274017334
+          ],
+          "visible_cameras": 130,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            -0.6997871994972229,
+            -0.6880247592926025,
+            1.1257362365722656
+          ],
+          "visible_cameras": 14,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor161",
+          "point": [
+            -0.32293596863746643,
+            -0.7474231719970703,
+            0.925909698009491
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.3056011199951172,
+            -0.4617499113082886,
+            0.9520456790924072
+          ],
+          "visible_cameras": 16,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.301431655883789,
+            -0.5394029021263123,
+            1.0647940635681152
+          ],
+          "visible_cameras": 7,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.1525696516036987,
+            -0.41401439905166626,
+            1.1398999691009521
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.2493432760238647,
+            -0.3405191898345947,
+            1.2635611295700073
+          ],
+          "visible_cameras": 5,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.3563921451568604,
+            -0.414379358291626,
+            0.8473443984985352
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.0725345611572266,
+            -0.7020146250724792,
+            0.8737190365791321
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.0744200944900513,
+            -0.40769484639167786,
+            0.9773055911064148
+          ],
+          "visible_cameras": 8,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -0.8840582966804504,
+            -0.47857362031936646,
+            0.9735125303268433
+          ],
+          "visible_cameras": 16,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.2138665914535522,
+            -0.298534631729126,
+            0.9997392296791077
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.21963369846344,
+            -0.6177648305892944,
+            1.1162492036819458
+          ],
+          "visible_cameras": 6,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.0153447389602661,
+            -0.5972021818161011,
+            0.9462388753890991
+          ],
+          "visible_cameras": 17,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor197",
+          "point": [
+            -1.0724525451660156,
+            -0.5190878510475159,
+            0.7904388904571533
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor212",
+          "point": [
+            -1.268567442893982,
+            -0.6779114603996277,
+            0.7848168015480042
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor212",
+          "point": [
+            -1.1965527534484863,
+            -0.2932544946670532,
+            0.7914704084396362
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor212",
+          "point": [
+            -0.9819831252098083,
+            -0.4476090967655182,
+            0.8042002320289612
+          ],
+          "visible_cameras": 4,
+          "diverse_views": 2
+        },
+        {
+          "object": "StaticMeshActor212",
+          "point": [
+            -1.2167181968688965,
+            -0.3499176800251007,
+            0.7909272909164429
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor212",
+          "point": [
+            -1.242379069328308,
+            -0.7303237318992615,
+            0.7936089038848877
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor68",
+          "point": [
+            2.7310495376586914,
+            3.3879144191741943,
+            1.8676260709762573
+          ],
+          "visible_cameras": 102,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor68",
+          "point": [
+            2.3496382236480713,
+            3.8561782836914062,
+            1.8676260709762573
+          ],
+          "visible_cameras": 83,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor68",
+          "point": [
+            2.491755962371826,
+            3.7228329181671143,
+            1.8676260709762573
+          ],
+          "visible_cameras": 78,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor68",
+          "point": [
+            2.5953798294067383,
+            3.557786703109741,
+            1.8676260709762573
+          ],
+          "visible_cameras": 86,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor58",
+          "point": [
+            2.7710494995117188,
+            3.6519691944122314,
+            1.8676260709762573
+          ],
+          "visible_cameras": 32,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            3.668614149093628,
+            2.0621516704559326,
+            0.3431001901626587
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            3.1035356521606445,
+            2.0621509552001953,
+            1.959044337272644
+          ],
+          "visible_cameras": 103,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            4.221345901489258,
+            2.0621509552001953,
+            0.6054782867431641
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            3.151644229888916,
+            2.0621509552001953,
+            2.317103624343872
+          ],
+          "visible_cameras": 122,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            4.463861465454102,
+            2.0621509552001953,
+            0.7766603827476501
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            4.561456680297852,
+            2.0621509552001953,
+            2.0302350521087646
+          ],
+          "visible_cameras": 2,
+          "diverse_views": 1
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            3.1676368713378906,
+            2.1821510791778564,
+            0.8227658867835999
+          ],
+          "visible_cameras": 67,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            4.257102012634277,
+            2.1821510791778564,
+            0.6063765287399292
+          ],
+          "visible_cameras": 55,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            3.1004531383514404,
+            2.1821510791778564,
+            2.121290922164917
+          ],
+          "visible_cameras": 65,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor57",
+          "point": [
+            4.525722980499268,
+            2.1821510791778564,
+            0.6834776401519775
+          ],
+          "visible_cameras": 51,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor137",
+          "point": [
+            2.7310495376586914,
+            2.18695330619812,
+            2.1230947971343994
+          ],
+          "visible_cameras": 81,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor137",
+          "point": [
+            2.751049518585205,
+            2.258039951324463,
+            2.3011248111724854
+          ],
+          "visible_cameras": 92,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor137",
+          "point": [
+            2.7310495376586914,
+            3.356640100479126,
+            2.2096357345581055
+          ],
+          "visible_cameras": 121,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            3.408813714981079,
+            2.1021509170532227,
+            2.1390810012817383
+          ],
+          "visible_cameras": 41,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            3.316049337387085,
+            2.1021509170532227,
+            1.8851938247680664
+          ],
+          "visible_cameras": 42,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            3.297769784927368,
+            2.1021509170532227,
+            1.6042364835739136
+          ],
+          "visible_cameras": 36,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            3.3563754558563232,
+            2.1021509170532227,
+            1.3331092596054077
+          ],
+          "visible_cameras": 40,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            3.4841690063476562,
+            2.1021509170532227,
+            1.107423186302185
+          ],
+          "visible_cameras": 25,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            3.664365768432617,
+            2.1021509170532227,
+            0.9568208456039429
+          ],
+          "visible_cameras": 26,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            3.8732988834381104,
+            2.1021509170532227,
+            0.901081919670105
+          ],
+          "visible_cameras": 29,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            4.083525657653809,
+            2.1021509170532227,
+            0.9475276470184326
+          ],
+          "visible_cameras": 28,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            4.272998809814453,
+            2.1021509170532227,
+            1.0964933633804321
+          ],
+          "visible_cameras": 24,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            4.404337406158447,
+            2.1021509170532227,
+            1.3185888528823853
+          ],
+          "visible_cameras": 21,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            4.467221260070801,
+            2.1021509170532227,
+            1.5880323648452759
+          ],
+          "visible_cameras": 30,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            4.45339298248291,
+            2.1021509170532227,
+            1.869435429573059
+          ],
+          "visible_cameras": 32,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor146",
+          "point": [
+            4.3646674156188965,
+            2.1021509170532227,
+            2.1258370876312256
+          ],
+          "visible_cameras": 29,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor72",
+          "point": [
+            4.438338756561279,
+            -2.8228321075439453,
+            1.9508938789367676
+          ],
+          "visible_cameras": 72,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor72",
+          "point": [
+            1.1825628280639648,
+            -2.807708978652954,
+            0.73429274559021
+          ],
+          "visible_cameras": 129,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor72",
+          "point": [
+            2.0575520992279053,
+            -2.807708978652954,
+            1.7008287906646729
+          ],
+          "visible_cameras": 128,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor138",
+          "point": [
+            2.882542133331299,
+            -2.858445644378662,
+            1.4507635831832886
+          ],
+          "visible_cameras": 62,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor138",
+          "point": [
+            1.0825629234313965,
+            -2.858445405960083,
+            2.23429274559021
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor138",
+          "point": [
+            3.8575313091278076,
+            -2.8068594932556152,
+            1.3009593486785889
+          ],
+          "visible_cameras": 114,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor227",
+          "point": [
+            1.99949049949646,
+            -2.854544162750244,
+            1.222556710243225
+          ],
+          "visible_cameras": 95,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor227",
+          "point": [
+            1.9993829727172852,
+            -2.867954969406128,
+            1.1273506879806519
+          ],
+          "visible_cameras": 53,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor231",
+          "point": [
+            1.6494903564453125,
+            -2.854544162750244,
+            1.222556710243225
+          ],
+          "visible_cameras": 100,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor231",
+          "point": [
+            1.6493828296661377,
+            -2.867954969406128,
+            1.1273506879806519
+          ],
+          "visible_cameras": 68,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor232",
+          "point": [
+            2.3494904041290283,
+            -2.854544162750244,
+            1.222556710243225
+          ],
+          "visible_cameras": 86,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor232",
+          "point": [
+            2.305642604827881,
+            -2.8596608638763428,
+            1.3033276796340942
+          ],
+          "visible_cameras": 132,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor232",
+          "point": [
+            2.3493828773498535,
+            -2.867954969406128,
+            1.1273506879806519
+          ],
+          "visible_cameras": 50,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor233",
+          "point": [
+            2.699490547180176,
+            -2.854544162750244,
+            1.222556710243225
+          ],
+          "visible_cameras": 84,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor233",
+          "point": [
+            2.699383020401001,
+            -2.867954969406128,
+            1.1273506879806519
+          ],
+          "visible_cameras": 38,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor234",
+          "point": [
+            3.049490451812744,
+            -2.854544162750244,
+            1.222556710243225
+          ],
+          "visible_cameras": 74,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor234",
+          "point": [
+            3.0493829250335693,
+            -2.867954969406128,
+            1.1273506879806519
+          ],
+          "visible_cameras": 35,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor235",
+          "point": [
+            3.3994903564453125,
+            -2.854544162750244,
+            1.222556710243225
+          ],
+          "visible_cameras": 55,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor235",
+          "point": [
+            3.3993828296661377,
+            -2.867954969406128,
+            1.1273506879806519
+          ],
+          "visible_cameras": 26,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            3.5275814533233643,
+            2.105484962463379,
+            2.2988758087158203
+          ],
+          "visible_cameras": 49,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            4.041306495666504,
+            2.105484962463379,
+            0.9296373724937439
+          ],
+          "visible_cameras": 37,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            4.366077423095703,
+            2.105484962463379,
+            1.2350066900253296
+          ],
+          "visible_cameras": 31,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            4.4691996574401855,
+            2.105484962463379,
+            1.7441964149475098
+          ],
+          "visible_cameras": 38,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            4.303340435028076,
+            2.105484962463379,
+            2.2235026359558105
+          ],
+          "visible_cameras": 38,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            3.9924302101135254,
+            2.112151622772217,
+            2.306605100631714
+          ],
+          "visible_cameras": 60,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            4.119772911071777,
+            2.112151622772217,
+            1.6671116352081299
+          ],
+          "visible_cameras": 64,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            3.6688568592071533,
+            2.112151622772217,
+            1.3817839622497559
+          ],
+          "visible_cameras": 63,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            3.5537805557250977,
+            2.092151641845703,
+            1.450760841369629
+          ],
+          "visible_cameras": 45,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            4.050055027008057,
+            2.092151641845703,
+            1.5295214653015137
+          ],
+          "visible_cameras": 29,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor13",
+          "point": [
+            4.084573745727539,
+            2.092151641845703,
+            2.189257860183716
+          ],
+          "visible_cameras": 26,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor128",
+          "point": [
+            4.2594194412231445,
+            -0.4198249578475952,
+            2.3158493041992188
+          ],
+          "visible_cameras": 90,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor128",
+          "point": [
+            4.2594194412231445,
+            -0.6446277499198914,
+            2.1340413093566895
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor128",
+          "point": [
+            4.2345452308654785,
+            -0.5583471059799194,
+            2.1848723888397217
+          ],
+          "visible_cameras": 80,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor128",
+          "point": [
+            4.243967056274414,
+            -0.9146045446395874,
+            1.8099408149719238
+          ],
+          "visible_cameras": 9,
+          "diverse_views": 4
+        },
+        {
+          "object": "StaticMeshActor128",
+          "point": [
+            4.2345452308654785,
+            -0.8030027151107788,
+            1.794901728630066
+          ],
+          "visible_cameras": 65,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor128",
+          "point": [
+            3.8077361583709717,
+            -0.7585505843162537,
+            1.8823819160461426
+          ],
+          "visible_cameras": 137,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor128",
+          "point": [
+            4.4479498863220215,
+            -0.7861238121986389,
+            1.8146313428878784
+          ],
+          "visible_cameras": 47,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor128",
+          "point": [
+            4.4479498863220215,
+            -0.5263145565986633,
+            2.2219736576080322
+          ],
+          "visible_cameras": 65,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor71",
+          "point": [
+            4.352794170379639,
+            -0.927223801612854,
+            0.9342917799949646
+          ],
+          "visible_cameras": 39,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor71",
+          "point": [
+            4.352794170379639,
+            -0.8072247505187988,
+            0.9342917799949646
+          ],
+          "visible_cameras": 15,
+          "diverse_views": 3
+        },
+        {
+          "object": "StaticMeshActor71",
+          "point": [
+            3.862558364868164,
+            -0.9265421628952026,
+            0.9342917799949646
+          ],
+          "visible_cameras": 72,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor71",
+          "point": [
+            3.857382297515869,
+            -0.9258614778518677,
+            1.867625117301941
+          ],
+          "visible_cameras": 72,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor71",
+          "point": [
+            3.809098243713379,
+            -0.8775779604911804,
+            0.9342917799949646
+          ],
+          "visible_cameras": 132,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor109",
+          "point": [
+            4.596320152282715,
+            -0.8072242140769958,
+            1.1676256656646729
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "StaticMeshActor109",
+          "point": [
+            4.442986965179443,
+            -0.8072242140769958,
+            1.1817247867584229
+          ],
+          "visible_cameras": 45,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor26",
+          "point": [
+            4.4333391189575195,
+            -2.819927930831909,
+            1.6628756523132324
+          ],
+          "visible_cameras": 72,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor26",
+          "point": [
+            4.430680751800537,
+            -2.8255860805511475,
+            1.7589000463485718
+          ],
+          "visible_cameras": 66,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor142",
+          "point": [
+            4.460386753082275,
+            -2.8133158683776855,
+            1.411433219909668
+          ],
+          "visible_cameras": 82,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor142",
+          "point": [
+            4.406315326690674,
+            -2.789973258972168,
+            1.5013517141342163
+          ],
+          "visible_cameras": 80,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor142",
+          "point": [
+            4.406315326690674,
+            -2.767883062362671,
+            1.5517511367797852
+          ],
+          "visible_cameras": 83,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor142",
+          "point": [
+            4.353982925415039,
+            -2.755054235458374,
+            1.6200684309005737
+          ],
+          "visible_cameras": 84,
+          "diverse_views": 5
+        },
+        {
+          "object": "StaticMeshActor142",
+          "point": [
+            4.352243900299072,
+            -2.802830219268799,
+            1.5350993871688843
+          ],
+          "visible_cameras": 85,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            3.8663992881774902,
+            3.1869609355926514,
+            0.6564682126045227
+          ],
+          "visible_cameras": 16,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            4.393795490264893,
+            3.2721312046051025,
+            0.28839051723480225
+          ],
+          "visible_cameras": 22,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            4.615968704223633,
+            3.309147596359253,
+            0.5319724082946777
+          ],
+          "visible_cameras": 2,
+          "diverse_views": 2
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            4.331297874450684,
+            3.464195728302002,
+            0.7387105226516724
+          ],
+          "visible_cameras": 10,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            3.172530174255371,
+            3.4630210399627686,
+            0.7350742816925049
+          ],
+          "visible_cameras": 18,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            3.160109758377075,
+            2.7329065799713135,
+            0.7323878407478333
+          ],
+          "visible_cameras": 64,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            4.318855285644531,
+            2.916383981704712,
+            0.5233054757118225
+          ],
+          "visible_cameras": 18,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            4.575130462646484,
+            2.8414740562438965,
+            0.3891502618789673
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            3.119535446166992,
+            2.7343978881835938,
+            0.7353733777999878
+          ],
+          "visible_cameras": 76,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            3.41325306892395,
+            2.8585286140441895,
+            0.7670100331306458
+          ],
+          "visible_cameras": 76,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            3.5503668785095215,
+            3.4596545696258545,
+            0.7669075727462769
+          ],
+          "visible_cameras": 70,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            3.0790011882781982,
+            3.2540621757507324,
+            0.7355175018310547
+          ],
+          "visible_cameras": 94,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai",
+          "point": [
+            3.232851982116699,
+            3.0651230812072754,
+            0.6064274311065674
+          ],
+          "visible_cameras": 56,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai_BOLI",
+          "point": [
+            3.24358868598938,
+            3.077221155166626,
+            0.1974172592163086
+          ],
+          "visible_cameras": 30,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai_BOLI",
+          "point": [
+            3.246370315551758,
+            3.1111512184143066,
+            0.46519920229911804
+          ],
+          "visible_cameras": 15,
+          "diverse_views": 5
+        },
+        {
+          "object": "04_batai_Actor0_04_batai_BOLI",
+          "point": [
+            3.208390235900879,
+            3.1322059631347656,
+            0.15984228253364563
+          ],
+          "visible_cameras": 49,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.197599411010742,
+            3.5019993782043457,
+            1.3323643207550049
+          ],
+          "visible_cameras": 55,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.1676154136657715,
+            3.5545742511749268,
+            0.36051827669143677
+          ],
+          "visible_cameras": 56,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.1725456714630127,
+            3.541886568069458,
+            0.8657278418540955
+          ],
+          "visible_cameras": 66,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.1419363021850586,
+            3.5804247856140137,
+            0.42704838514328003
+          ],
+          "visible_cameras": 26,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.146399736404419,
+            3.448354959487915,
+            0.31555700302124023
+          ],
+          "visible_cameras": 71,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.1058294773101807,
+            3.54050350189209,
+            1.5235499143600464
+          ],
+          "visible_cameras": 57,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            1.9672794342041016,
+            3.464103937149048,
+            0.6619262099266052
+          ],
+          "visible_cameras": 123,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.207552433013916,
+            3.4955732822418213,
+            0.9114398956298828
+          ],
+          "visible_cameras": 37,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.239508628845215,
+            3.4602856636047363,
+            1.3676403760910034
+          ],
+          "visible_cameras": 4,
+          "diverse_views": 3
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.0716686248779297,
+            3.502821922302246,
+            0.9911718964576721
+          ],
+          "visible_cameras": 55,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178",
+          "point": [
+            2.0523860454559326,
+            3.5076115131378174,
+            0.6136248707771301
+          ],
+          "visible_cameras": 22,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            2.39237904548645,
+            3.4639484882354736,
+            1.443150281906128
+          ],
+          "visible_cameras": 84,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            2.2857213020324707,
+            3.3984322547912598,
+            1.436834692955017
+          ],
+          "visible_cameras": 109,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            1.9413145780563354,
+            3.52494478225708,
+            1.2908940315246582
+          ],
+          "visible_cameras": 113,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            2.026165008544922,
+            3.3705668449401855,
+            1.5470560789108276
+          ],
+          "visible_cameras": 142,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            1.9529715776443481,
+            3.49814772605896,
+            1.3653000593185425
+          ],
+          "visible_cameras": 109,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            1.9952131509780884,
+            3.4397542476654053,
+            0.9188695549964905
+          ],
+          "visible_cameras": 110,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            2.2730414867401123,
+            3.391232490539551,
+            1.0204401016235352
+          ],
+          "visible_cameras": 109,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            2.280557632446289,
+            3.395472288131714,
+            0.7435185313224792
+          ],
+          "visible_cameras": 106,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            2.1341426372528076,
+            3.321789026260376,
+            0.9461923241615295
+          ],
+          "visible_cameras": 126,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            1.8725919723510742,
+            3.6402230262756348,
+            0.6321426630020142
+          ],
+          "visible_cameras": 112,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            2.31475567817688,
+            3.424013376235962,
+            1.2878687381744385
+          ],
+          "visible_cameras": 98,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            2.0082974433898926,
+            3.4165396690368652,
+            1.4536432027816772
+          ],
+          "visible_cameras": 118,
+          "diverse_views": 5
+        },
+        {
+          "object": "light_55x50x178_actor0_light_55x50x178_glass",
+          "point": [
+            1.9134374856948853,
+            3.5842039585113525,
+            1.665947675704956
+          ],
+          "visible_cameras": 115,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.316525459289551,
+            0.6451846957206726,
+            1.2360291481018066
+          ],
+          "visible_cameras": 36,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.198087215423584,
+            0.691459596157074,
+            1.1030055284500122
+          ],
+          "visible_cameras": 22,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.04972505569458,
+            0.817414402961731,
+            1.061578392982483
+          ],
+          "visible_cameras": 92,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.3899407386779785,
+            0.8977137804031372,
+            1.0595645904541016
+          ],
+          "visible_cameras": 6,
+          "diverse_views": 1
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.369214057922363,
+            0.9224209785461426,
+            0.9024497866630554
+          ],
+          "visible_cameras": 30,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.113884449005127,
+            0.7566667199134827,
+            1.1902527809143066
+          ],
+          "visible_cameras": 105,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.240975856781006,
+            0.9076308608055115,
+            1.2890137434005737
+          ],
+          "visible_cameras": 31,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.215815544128418,
+            0.5559548735618591,
+            1.009574294090271
+          ],
+          "visible_cameras": 76,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.118683338165283,
+            0.8165978193283081,
+            1.2315932512283325
+          ],
+          "visible_cameras": 108,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+          "point": [
+            4.112315654754639,
+            0.6945881247520447,
+            1.2082116603851318
+          ],
+          "visible_cameras": 105,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL_BL",
+          "point": [
+            4.249462127685547,
+            0.7941241264343262,
+            1.2374513149261475
+          ],
+          "visible_cameras": 44,
+          "diverse_views": 5
+        },
+        {
+          "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL_BL",
+          "point": [
+            4.23992395401001,
+            0.8916616439819336,
+            1.248579740524292
+          ],
+          "visible_cameras": 35,
+          "diverse_views": 5
+        },
+        {
+          "object": "Light_06_BP0_Light_06",
+          "point": [
+            2.6012966632843018,
+            -0.4024251699447632,
+            0.523466169834137
+          ],
+          "visible_cameras": 133,
+          "diverse_views": 5
+        },
+        {
+          "object": "Light_06_BP0_Light_06",
+          "point": [
+            2.5252280235290527,
+            -0.2245146632194519,
+            0.49337291717529297
+          ],
+          "visible_cameras": 96,
+          "diverse_views": 5
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -0.17551004886627197,
+            -0.793788731098175,
+            1.1972506046295166
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -0.37487179040908813,
+            -0.6207581758499146,
+            1.4668856859207153
+          ],
+          "visible_cameras": 133,
+          "diverse_views": 5
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -0.7386919856071472,
+            -0.4355573058128357,
+            1.4668856859207153
+          ],
+          "visible_cameras": 119,
+          "diverse_views": 5
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -1.077394962310791,
+            -0.2002747505903244,
+            1.4668856859207153
+          ],
+          "visible_cameras": 117,
+          "diverse_views": 5
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -1.2539112567901611,
+            -0.08290788531303406,
+            0.9276161193847656
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -0.9780169725418091,
+            -0.2909342646598816,
+            0.9276159405708313
+          ],
+          "visible_cameras": 103,
+          "diverse_views": 5
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -0.5121292471885681,
+            -0.591456413269043,
+            0.9276159405708313
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -0.1939736306667328,
+            -0.7562151551246643,
+            0.9276159405708313
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -0.22796276211738586,
+            -0.7455006241798401,
+            1.7365198135375977
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -0.3486446142196655,
+            -0.7030986547470093,
+            1.7365201711654663
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -0.5728694796562195,
+            -0.5679147243499756,
+            1.7365204095840454
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -1.0785125494003296,
+            -0.32926076650619507,
+            1.7365204095840454
+          ],
+          "visible_cameras": 0,
+          "diverse_views": 0
+        },
+        {
+          "object": "Light_15_BP0_Light_15",
+          "point": [
+            -1.312537670135498,
+            -0.011723339557647705,
+            1.7365204095840454
+          ],
+          "visible_cameras": 91,
+          "diverse_views": 5
+        }
+      ],
+      "scope": "object-stratified polygon samples within retained path bounds; actual camera frustum and first mesh hit; not total surface coverage",
+      "actual_camera_verification": {
+        "candidate_routes": 9,
+        "accepted_routes": 3,
+        "validation_cameras": 75,
+        "validation_stations_per_route": 5,
+        "before_under_three": 67,
+        "after_under_three": 67,
+        "improved_samples": 9,
+        "weak_samples": [
+          {
+            "object": "StaticMeshActor201",
+            "point": [
+              0.25358080863952637,
+              0.03867122530937195,
+              0.24073024094104767
+            ],
+            "visible_cameras": 5,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor201",
+            "point": [
+              -0.08109860122203827,
+              0.47476381063461304,
+              0.25496479868888855
+            ],
+            "visible_cameras": 2,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor201",
+            "point": [
+              -0.021334707736968994,
+              -0.2794382870197296,
+              0.6899001598358154
+            ],
+            "visible_cameras": 2,
+            "diverse_views": 2,
+            "after_diverse_views": 2
+          },
+          {
+            "object": "StaticMeshActor202",
+            "point": [
+              3.8331260681152344,
+              3.7550811767578125,
+              0.29886478185653687
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor208",
+            "point": [
+              4.282677173614502,
+              2.5204596519470215,
+              0.2644287049770355
+            ],
+            "visible_cameras": 3,
+            "diverse_views": 2,
+            "after_diverse_views": 2
+          },
+          {
+            "object": "StaticMeshActor208",
+            "point": [
+              4.228745937347412,
+              2.366847515106201,
+              0.20619140565395355
+            ],
+            "visible_cameras": 1,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor208",
+            "point": [
+              4.043940544128418,
+              2.311861753463745,
+              0.15084795653820038
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor208",
+            "point": [
+              4.198488712310791,
+              2.500153064727783,
+              0.19543933868408203
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor208",
+            "point": [
+              4.056763648986816,
+              2.3114542961120605,
+              0.37160858511924744
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor222",
+            "point": [
+              3.4295811653137207,
+              2.4974069595336914,
+              0.19543981552124023
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor222",
+            "point": [
+              3.287856340408325,
+              2.3087081909179688,
+              0.37160906195640564
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor129",
+            "point": [
+              2.632615566253662,
+              1.8228791952133179,
+              0.6877775192260742
+            ],
+            "visible_cameras": 1,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor129",
+            "point": [
+              4.5832648277282715,
+              0.8046024441719055,
+              1.5709412097930908
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor129",
+            "point": [
+              4.423399925231934,
+              1.1327567100524902,
+              1.0646806955337524
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor129",
+            "point": [
+              4.19667387008667,
+              1.38582444190979,
+              0.6423808336257935
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor129",
+            "point": [
+              2.993494749069214,
+              2.0092954635620117,
+              0.33954012393951416
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor129",
+            "point": [
+              3.106229782104492,
+              1.9793477058410645,
+              0.601615309715271
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor35",
+            "point": [
+              3.993441104888916,
+              0.22367146611213684,
+              0.7481096386909485
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor264",
+            "point": [
+              4.32822847366333,
+              -0.6111708283424377,
+              1.1866958141326904
+            ],
+            "visible_cameras": 1,
+            "diverse_views": 1,
+            "after_diverse_views": 2
+          },
+          {
+            "object": "StaticMeshActor264",
+            "point": [
+              4.283989906311035,
+              -0.7350062131881714,
+              1.0736030340194702
+            ],
+            "visible_cameras": 1,
+            "diverse_views": 1,
+            "proposed_diverse_views": 2,
+            "after_diverse_views": 2
+          },
+          {
+            "object": "StaticMeshActor261",
+            "point": [
+              4.408668518066406,
+              0.37912997603416443,
+              1.7184208631515503
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              4.015302658081055,
+              1.7438713312149048,
+              1.8457849025726318
+            ],
+            "visible_cameras": 1,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              3.87954044342041,
+              1.7780132293701172,
+              1.9782427549362183
+            ],
+            "visible_cameras": 9,
+            "diverse_views": 2,
+            "after_diverse_views": 2
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              4.631204605102539,
+              1.6881147623062134,
+              1.9530502557754517
+            ],
+            "visible_cameras": 7,
+            "diverse_views": 1,
+            "after_diverse_views": 2
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              4.166172504425049,
+              1.9870179891586304,
+              1.7490441799163818
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              3.8576056957244873,
+              1.9131501913070679,
+              1.3221333026885986
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              4.093617916107178,
+              1.6572093963623047,
+              1.6268219947814941
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              4.41634464263916,
+              1.7829985618591309,
+              1.3610849380493164
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              3.9583163261413574,
+              1.6301847696304321,
+              1.1902059316635132
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              3.983555316925049,
+              1.7836079597473145,
+              1.8164443969726562
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              4.059760570526123,
+              1.7337474822998047,
+              1.588865876197815
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              3.933091163635254,
+              1.9137344360351562,
+              1.5862233638763428
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              4.582400798797607,
+              1.7191798686981201,
+              2.0666048526763916
+            ],
+            "visible_cameras": 5,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor209",
+            "point": [
+              4.588890075683594,
+              1.8371113538742065,
+              1.5655769109725952
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor45",
+            "point": [
+              4.542986869812012,
+              0.9000803828239441,
+              1.1676255464553833
+            ],
+            "visible_cameras": 4,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor161",
+            "point": [
+              0.6757785081863403,
+              -0.9136208295822144,
+              1.741776466369629
+            ],
+            "visible_cameras": 1,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor161",
+            "point": [
+              -1.0231366157531738,
+              -0.374529629945755,
+              1.4668856859207153
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor161",
+            "point": [
+              -0.2961600124835968,
+              -0.7920244336128235,
+              1.7416406869888306
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor161",
+            "point": [
+              -0.32293596863746643,
+              -0.7474231719970703,
+              0.925909698009491
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor197",
+            "point": [
+              -1.1525696516036987,
+              -0.41401439905166626,
+              1.1398999691009521
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor197",
+            "point": [
+              -1.3563921451568604,
+              -0.414379358291626,
+              0.8473443984985352
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor197",
+            "point": [
+              -1.0725345611572266,
+              -0.7020146250724792,
+              0.8737190365791321
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor197",
+            "point": [
+              -1.2138665914535522,
+              -0.298534631729126,
+              0.9997392296791077
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor197",
+            "point": [
+              -1.0724525451660156,
+              -0.5190878510475159,
+              0.7904388904571533
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor212",
+            "point": [
+              -1.268567442893982,
+              -0.6779114603996277,
+              0.7848168015480042
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor212",
+            "point": [
+              -1.1965527534484863,
+              -0.2932544946670532,
+              0.7914704084396362
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor212",
+            "point": [
+              -0.9819831252098083,
+              -0.4476090967655182,
+              0.8042002320289612
+            ],
+            "visible_cameras": 4,
+            "diverse_views": 2,
+            "after_diverse_views": 2
+          },
+          {
+            "object": "StaticMeshActor212",
+            "point": [
+              -1.2167181968688965,
+              -0.3499176800251007,
+              0.7909272909164429
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor212",
+            "point": [
+              -1.242379069328308,
+              -0.7303237318992615,
+              0.7936089038848877
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor57",
+            "point": [
+              3.668614149093628,
+              2.0621516704559326,
+              0.3431001901626587
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor57",
+            "point": [
+              4.221345901489258,
+              2.0621509552001953,
+              0.6054782867431641
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor57",
+            "point": [
+              4.463861465454102,
+              2.0621509552001953,
+              0.7766603827476501
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor57",
+            "point": [
+              4.561456680297852,
+              2.0621509552001953,
+              2.0302350521087646
+            ],
+            "visible_cameras": 2,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "StaticMeshActor138",
+            "point": [
+              1.0825629234313965,
+              -2.858445405960083,
+              2.23429274559021
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor128",
+            "point": [
+              4.2594194412231445,
+              -0.6446277499198914,
+              2.1340413093566895
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "StaticMeshActor109",
+            "point": [
+              4.596320152282715,
+              -0.8072242140769958,
+              1.1676256656646729
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "04_batai_Actor0_04_batai",
+            "point": [
+              4.615968704223633,
+              3.309147596359253,
+              0.5319724082946777
+            ],
+            "visible_cameras": 2,
+            "diverse_views": 2,
+            "after_diverse_views": 2
+          },
+          {
+            "object": "04_batai_Actor0_04_batai",
+            "point": [
+              4.575130462646484,
+              2.8414740562438965,
+              0.3891502618789673
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "NOBILIA_211_8_F_DXL_Actor0_NOBILIA_211_8_F_DXL",
+            "point": [
+              4.3899407386779785,
+              0.8977137804031372,
+              1.0595645904541016
+            ],
+            "visible_cameras": 6,
+            "diverse_views": 1,
+            "after_diverse_views": 1
+          },
+          {
+            "object": "Light_15_BP0_Light_15",
+            "point": [
+              -0.17551004886627197,
+              -0.793788731098175,
+              1.1972506046295166
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "Light_15_BP0_Light_15",
+            "point": [
+              -1.2539112567901611,
+              -0.08290788531303406,
+              0.9276161193847656
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "Light_15_BP0_Light_15",
+            "point": [
+              -0.5121292471885681,
+              -0.591456413269043,
+              0.9276159405708313
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "Light_15_BP0_Light_15",
+            "point": [
+              -0.1939736306667328,
+              -0.7562151551246643,
+              0.9276159405708313
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "Light_15_BP0_Light_15",
+            "point": [
+              -0.22796276211738586,
+              -0.7455006241798401,
+              1.7365198135375977
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "Light_15_BP0_Light_15",
+            "point": [
+              -0.3486446142196655,
+              -0.7030986547470093,
+              1.7365201711654663
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "Light_15_BP0_Light_15",
+            "point": [
+              -0.5728694796562195,
+              -0.5679147243499756,
+              1.7365204095840454
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          },
+          {
+            "object": "Light_15_BP0_Light_15",
+            "point": [
+              -1.0785125494003296,
+              -0.32926076650619507,
+              1.7365204095840454
+            ],
+            "visible_cameras": 0,
+            "diverse_views": 0,
+            "after_diverse_views": 0
+          }
+        ]
+      }
+    },
+    "surface_visibility_evaluated": false,
+    "floor_source": "AUTO"
+  }
+}
