@@ -1,0 +1,8 @@
+{
+  "installed": true,
+  "enabled": true,
+  "ui_version": "1.6.10",
+  "module": "bl_ext.gs_install_test.blender_gs_colmap_exporter",
+  "box_created": true,
+  "integrated_panel": true
+}
