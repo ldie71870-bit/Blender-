@@ -1,0 +1,15 @@
+{
+  "samples": 177241,
+  "triangles": 352800,
+  "total_chunks": 1379,
+  "local_dirty_chunks": 49,
+  "first_dab_occlusion_rays": 973,
+  "repeated_old_occlusion_rays": 77840,
+  "repeated_new_occlusion_rays": 0,
+  "repeated_old_median_ms": 1.3463499926729128,
+  "repeated_new_median_ms": 0.2227000004495494,
+  "one_time_chunk_setup_s": 0.44252399999822956,
+  "base_batch_preserved": true,
+  "curved_rim_projection": true,
+  "undo_keeps_cache": true
+}
