@@ -1,6 +1,10 @@
 # Gaussian Splat COLMAP Dataset Generator
 
-最新发布：**1.6.23** · [下载安装包](releases/blender_gs_colmap_exporter-1.6.23-install-reload-hotfix.zip) · [更新说明](versions/1.6.23/RELEASE_1.6.23_zh.md) · [源码](versions/1.6.23)
+最新发布：**1.6.24** · [下载安装包](releases/blender_gs_colmap_exporter-1.6.24-strict-station-budget.zip) · [更新说明](versions/1.6.24/RELEASE_1.6.24_zh.md) · [源码](versions/1.6.24)
+
+## 1.6.24：严格遵守站点数量
+
+设定 50 个站点就按 50 分配，细部线最低建议不再将预算自动扩展到 319。密度上限和区域配额同样受总预算约束。包含安装及自动路径进度修复；本包未合入覆盖补拍核心重构。
 
 ## 1.6.23：安装与重载注册冲突修复
 
