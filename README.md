@@ -1,6 +1,10 @@
 # Gaussian Splat COLMAP Dataset Generator
 
-最新发布：**1.6.24** · [下载安装包](releases/blender_gs_colmap_exporter-1.6.24-strict-station-budget.zip) · [更新说明](versions/1.6.24/RELEASE_1.6.24_zh.md) · [源码](versions/1.6.24)
+最新发布：**1.6.25** · [下载安装包](releases/blender_gs_colmap_exporter-1.6.25-camera-clearance-hotfix.zip) · [更新说明](versions/1.6.25/RELEASE_1.6.25_zh.md) · [源码](versions/1.6.25)
+
+## 1.6.25：相机生成避障修复
+
+修复相机净空检测被复杂路径显示管体阻塞并报错。生成任务查询真实障碍，排除路径显示几何，保留墙体和家具碰撞。删除细部建议数量提示，继续严格遵守总站点预算。
 
 ## 1.6.24：严格遵守站点数量
 
