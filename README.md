@@ -1,6 +1,12 @@
 # Gaussian Splat COLMAP Dataset Generator
 
-最新发布：**1.6.26** · [下载安装包](releases/blender_gs_colmap_exporter-1.6.26-fast-sparse-export.zip) · [更新说明](versions/1.6.26/RELEASE_1.6.26_zh.md) · [源码](versions/1.6.26)
+最新发布：**1.6.27** · [下载安装包](releases/blender_gs_colmap_exporter-1.6.27-contour-progress-lock-hotfix.zip) · [更新说明](versions/1.6.27/RELEASE_1.6.27_zh.md) · [源码](versions/1.6.27)
+
+## 1.6.27：自动路径进度文件锁定修复
+
+修复自动生成路径时 `progress.tmp -> progress.json` 触发 `[WinError 5] 拒绝访问` 并中止任务的问题。
+进度更新改为独立临时文件、短间隔重试和非关键降级；文件持续被占用只会跳过一次进度显示，
+不会停止后台路径计算。最终结果文件仍严格写入，真实生成错误仍正常提示。
 
 ## 1.6.26：自动路径旧进度接口热修
 
