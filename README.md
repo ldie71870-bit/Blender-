@@ -1,10 +1,10 @@
 # Gaussian Splat COLMAP Dataset Generator
 
-最新发布：**1.6.26** · [下载安装包](releases/blender_gs_colmap_exporter-1.6.26-path-progress-legacy-hotfix.zip) · [更新说明](versions/1.6.26/RELEASE_1.6.26_zh.md) · [源码](versions/1.6.26)
+最新发布：**1.6.26** · [下载安装包](releases/blender_gs_colmap_exporter-1.6.26-fast-sparse-export.zip) · [更新说明](versions/1.6.26/RELEASE_1.6.26_zh.md) · [源码](versions/1.6.26)
 
 ## 1.6.26：自动路径旧进度接口热修
 
-修复扩展热更新后旧自动路径任务调用缺失 `contour_jobs.status/fraction` 而中止的问题。保留子模块会自动补回接口，进度文件缺失或损坏只保留上次显示，后台生成继续执行。
+修复扩展热更新后旧自动路径任务调用缺失 `contour_jobs.status/fraction` 而中止的问题。保留子模块会自动补回接口，进度文件缺失或损坏只保留上次显示，后台生成继续执行。并加快仅生成 sparse 点云的导出流程。
 
 ## 1.6.25：相机生成避障修复
 
